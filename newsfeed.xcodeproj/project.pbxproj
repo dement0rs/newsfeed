@@ -15,8 +15,11 @@
 		22887ED525D121ED002CFF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22887ED325D121ED002CFF65 /* LaunchScreen.storyboard */; };
 		22887EE025D121ED002CFF65 /* newsfeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22887EDF25D121ED002CFF65 /* newsfeedTests.swift */; };
 		22887EEB25D121ED002CFF65 /* newsfeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22887EEA25D121ED002CFF65 /* newsfeedUITests.swift */; };
-		CA1A65BB25D159BC009ACF86 /* ModelNewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65BA25D159BC009ACF86 /* ModelNewsAPI.swift */; };
+		CA1A65BB25D159BC009ACF86 /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65BA25D159BC009ACF86 /* NewsResponse.swift */; };
 		CA1A65C425D15AC3009ACF86 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65C325D15AC3009ACF86 /* Constants.swift */; };
+		CA1A65CF25D1739A009ACF86 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65CE25D1739A009ACF86 /* Article.swift */; };
+		CA1A65D725D173D7009ACF86 /* ArticleSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65D625D173D7009ACF86 /* ArticleSource.swift */; };
+		CA1A65DC25D17852009ACF86 /* ErrorsFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65DB25D17852009ACF86 /* ErrorsFormat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +54,11 @@
 		22887EE625D121ED002CFF65 /* newsfeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newsfeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22887EEA25D121ED002CFF65 /* newsfeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newsfeedUITests.swift; sourceTree = "<group>"; };
 		22887EEC25D121ED002CFF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CA1A65BA25D159BC009ACF86 /* ModelNewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelNewsAPI.swift; sourceTree = "<group>"; };
+		CA1A65BA25D159BC009ACF86 /* NewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
 		CA1A65C325D15AC3009ACF86 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CA1A65CE25D1739A009ACF86 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		CA1A65D625D173D7009ACF86 /* ArticleSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSource.swift; sourceTree = "<group>"; };
+		CA1A65DB25D17852009ACF86 /* ErrorsFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsFormat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +143,10 @@
 		CA1A65B625D15995009ACF86 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CA1A65BA25D159BC009ACF86 /* ModelNewsAPI.swift */,
+				CA1A65BA25D159BC009ACF86 /* NewsResponse.swift */,
+				CA1A65CE25D1739A009ACF86 /* Article.swift */,
+				CA1A65D625D173D7009ACF86 /* ArticleSource.swift */,
+				CA1A65DB25D17852009ACF86 /* ErrorsFormat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -282,7 +291,10 @@
 			files = (
 				CA1A65C425D15AC3009ACF86 /* Constants.swift in Sources */,
 				22887ECD25D121EC002CFF65 /* ViewController.swift in Sources */,
-				CA1A65BB25D159BC009ACF86 /* ModelNewsAPI.swift in Sources */,
+				CA1A65CF25D1739A009ACF86 /* Article.swift in Sources */,
+				CA1A65DC25D17852009ACF86 /* ErrorsFormat.swift in Sources */,
+				CA1A65D725D173D7009ACF86 /* ArticleSource.swift in Sources */,
+				CA1A65BB25D159BC009ACF86 /* NewsResponse.swift in Sources */,
 				22887EC925D121EC002CFF65 /* AppDelegate.swift in Sources */,
 				22887ECB25D121EC002CFF65 /* SceneDelegate.swift in Sources */,
 			);

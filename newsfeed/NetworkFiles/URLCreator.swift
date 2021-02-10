@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct CreatingURLManager {
+struct URLCreator {
     
     let apiKey = APIKeys()
     // add input parameters
+    // topic, date, sorting
     func createURL() -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -21,7 +22,7 @@ struct CreatingURLManager {
             URLQueryItem(name: "from", value: "2021-02-07"),
             URLQueryItem(name: "to", value: "2021-02-07"),
             URLQueryItem(name: "sortBy", value: "popularity"),
-            URLQueryItem(name: "apiKey", value: apiKey)
+            URLQueryItem(name: "apiKey", value: apiKey.currentApiKey)
         ]
         let urlString = urlComponents.url?.absoluteURL
         return urlString

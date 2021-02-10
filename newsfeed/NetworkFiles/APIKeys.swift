@@ -9,6 +9,6 @@ import Foundation
 
 class APIKeys {
     
-let apiKey = "e56c97e0c2344aa2817396a7f2deb097"
+let currentApiKey = "e56c97e0c2344aa2817396a7f2deb097"
     
 }

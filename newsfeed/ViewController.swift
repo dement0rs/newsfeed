@@ -9,14 +9,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let test = NetworkManager()
+    let test = GoogleNewsAPI()
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        test.fetch()
+        test.fetchData()
         
     }
 
 
 }
+
 

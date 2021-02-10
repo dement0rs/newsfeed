@@ -9,9 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let test = NetworkManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        test.fetch()
+        
     }
 
 

@@ -7,26 +7,24 @@
 
 import Foundation
 
-//This file will update when the project will have more entities
-
-//fetch data
-// parsejson
-//send to completionHandler result
-// create class news service
-//
-//rename url
-
 class GoogleNewsAPI {
 
-    var createdUrl = URLCreator()
+    let creator = URLCreator()
+
+    func fetchEverything(googleNewsEverythingRequest : GoogleNewsEverythingRequest) {
+        guard let url = creator.createURL(endp: Endpoints.everything, param: googleNewsEverythingRequest) else { return }
+        self.fetchData(url: url)
+    }
     
-    //add input parameters like in CreatingURLManager
+    func fetchTopHeadlines(googleNewsHeadlinesRequest: GoogleNewsHeadlinesRequest ) {
+        guard let url = creator.createURL(endp: Endpoints.topHeadlines, param: googleNewsHeadlinesRequest) else { return }
+        self.fetchData(url: url)
+
+    }
     
-    func fetchData() {
-        
-        guard let url = createdUrl.createURL() else {
-            return
-        }
+    
+    
+   private func fetchData(url: URL) {
         let session = URLSession.shared
         let task = session.dataTask(with: url) { (data, response, error) in
             if let error = error {
@@ -45,56 +43,23 @@ class GoogleNewsAPI {
         
     }
     
-    func parseJSON(data: Data) {
+  private  func parseJSON(data: Data) {
+        let dataString = String(data: data, encoding: .utf8)
+        print("dataString")
+        print(dataString!)
+        
         let decoder = JSONDecoder()
         do {
             let currentData = try decoder.decode(NewsResponse.self, from: data)
             print(currentData.articles.count)
+            print(currentData.articles[0].content)
+            print(currentData.totalResults)
+            print(currentData.articles[0].title)
         } catch {
             print("some error")
-            print(error.localizedDescription)
+            print(error)
         }
         
     }
 }
 
-//Создайте класс для взаимодействия с newsapi.
-//Он должен иметь базовый URL в качестве внешнего параметра.
-//Единственный открытый метод должен возвращать коллекцию статей или ошибку, если таковая имеется.
-//Убедитесь, что вы предоставили удобный интерфейс для настройки количества статей, страны, языка и т. Д.
-
-//class GoogleNewsAPI {
-//let urlBuilder: URLBuilder
-//public func fetchData(params: NewsFilter)
-//}
-//
-//class URLBuilder {
-//let baseURL: String
-//let apiKey: String
-//}
-//
-//enum Endpoints: String {
-//case topHeadlines = "top-headlines"
-//case everything = "everything"
-//...
-//}
-//
-//struct GoogleNewsHeadlinesRequest {
-//let country: String
-//let language: String
-//let page: Int
-//let pageSize: Int
-//}
-//
-//struct GoogleNewsEverythingRequest {
-//enum SortCriteria: String {
-//case popularity = "popularity"
-//...
-//}
-//
-//let topic: String
-//let dateFrom: Date
-//let dateTo: Date
-//let sortCriteria: SortCriteria
-//}
-//

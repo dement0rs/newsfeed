@@ -15,10 +15,11 @@ struct NewsResponse: Codable {
 
 struct Article: Codable {
     let source: ArticleSource
-    let author, title, articleDescription: String
+    let author: String?
+    let title, articleDescription: String
     let url: String
-    let urlToImage: String
-    let publishedAt: Date
+    let urlToImage: String?
+    let publishedAt: String
     let content: String
 
     enum CodingKeys: String, CodingKey {

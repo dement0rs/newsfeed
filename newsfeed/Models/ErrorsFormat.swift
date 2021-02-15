@@ -9,6 +9,7 @@ import Foundation
 
 
 struct ErrorsFormat: Codable, Error {
+    
     let status: String
     let code: String
     let message: String

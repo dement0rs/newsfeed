@@ -1,5 +1,5 @@
 //
-//  ModelNewsAPI.swift
+//  Constants.swift
 //  newsfeed
 //
 //  Created by Anna Oksanichenko on 08.02.2021.
@@ -7,12 +7,14 @@
 
 import Foundation
 
+// MARK: - NewsResponse
 struct NewsResponse: Codable {
     let status: String
     let totalResults: Int
     let articles: [Article]
 }
 
+// MARK: - Article
 struct Article: Codable {
     let source: ArticleSource
     let author: String?
@@ -20,7 +22,7 @@ struct Article: Codable {
     let url: String
     let urlToImage: String?
     let publishedAt: String
-    let content: String
+    let content: String?
 
     enum CodingKeys: String, CodingKey {
         case source, author, title
@@ -29,6 +31,7 @@ struct Article: Codable {
     }
 }
 
+// MARK: - Source
 struct ArticleSource: Codable {
     let id: String?
     let name: String

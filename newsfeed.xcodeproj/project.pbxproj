@@ -17,11 +17,12 @@
 		22887EEB25D121ED002CFF65 /* newsfeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22887EEA25D121ED002CFF65 /* newsfeedUITests.swift */; };
 		CA1A65BB25D159BC009ACF86 /* NewsResponseAPIJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65BA25D159BC009ACF86 /* NewsResponseAPIJSON.swift */; };
 		CA1A65C425D15AC3009ACF86 /* NewsAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65C325D15AC3009ACF86 /* NewsAPIManager.swift */; };
-		CA1A65CF25D1739A009ACF86 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65CE25D1739A009ACF86 /* Article.swift */; };
-		CA1A65D725D173D7009ACF86 /* ArticleSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65D625D173D7009ACF86 /* ArticleSource.swift */; };
 		CA1A65DC25D17852009ACF86 /* ErrorsFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65DB25D17852009ACF86 /* ErrorsFormat.swift */; };
-		CA1A65EA25D3C4B5009ACF86 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65E925D3C4B5009ACF86 /* APIKeys.swift */; };
-		CA1A660825D59FF6009ACF86 /* new.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A660725D59FF6009ACF86 /* new.swift */; };
+		CA1A660825D59FF6009ACF86 /* URLCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A660725D59FF6009ACF86 /* URLCreator.swift */; };
+		CA1A662225D6BF54009ACF86 /* EverythingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A662125D6BF54009ACF86 /* EverythingRequest.swift */; };
+		CA1A662725D6C0FA009ACF86 /* TopHeadlinesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A662625D6C0FA009ACF86 /* TopHeadlinesRequest.swift */; };
+		CA1A662F25D6C1C3009ACF86 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A662E25D6C1C3009ACF86 /* Endpoints.swift */; };
+		CA1A663425D6C98E009ACF86 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A663325D6C98D009ACF86 /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,11 +59,12 @@
 		22887EEC25D121ED002CFF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA1A65BA25D159BC009ACF86 /* NewsResponseAPIJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponseAPIJSON.swift; sourceTree = "<group>"; };
 		CA1A65C325D15AC3009ACF86 /* NewsAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIManager.swift; sourceTree = "<group>"; };
-		CA1A65CE25D1739A009ACF86 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
-		CA1A65D625D173D7009ACF86 /* ArticleSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSource.swift; sourceTree = "<group>"; };
 		CA1A65DB25D17852009ACF86 /* ErrorsFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsFormat.swift; sourceTree = "<group>"; };
-		CA1A65E925D3C4B5009ACF86 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
-		CA1A660725D59FF6009ACF86 /* new.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new.swift; sourceTree = "<group>"; };
+		CA1A660725D59FF6009ACF86 /* URLCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCreator.swift; sourceTree = "<group>"; };
+		CA1A662125D6BF54009ACF86 /* EverythingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingRequest.swift; sourceTree = "<group>"; };
+		CA1A662625D6C0FA009ACF86 /* TopHeadlinesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeadlinesRequest.swift; sourceTree = "<group>"; };
+		CA1A662E25D6C1C3009ACF86 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		CA1A663325D6C98D009ACF86 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,8 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				CA1A65BA25D159BC009ACF86 /* NewsResponseAPIJSON.swift */,
-				CA1A65CE25D1739A009ACF86 /* Article.swift */,
-				CA1A65D625D173D7009ACF86 /* ArticleSource.swift */,
 				CA1A65DB25D17852009ACF86 /* ErrorsFormat.swift */,
 			);
 			path = Models;
@@ -159,8 +159,11 @@
 			isa = PBXGroup;
 			children = (
 				CA1A65C325D15AC3009ACF86 /* NewsAPIManager.swift */,
-				CA1A660725D59FF6009ACF86 /* new.swift */,
-				CA1A65E925D3C4B5009ACF86 /* APIKeys.swift */,
+				CA1A660725D59FF6009ACF86 /* URLCreator.swift */,
+				CA1A662E25D6C1C3009ACF86 /* Endpoints.swift */,
+				CA1A663325D6C98D009ACF86 /* Protocols.swift */,
+				CA1A662125D6BF54009ACF86 /* EverythingRequest.swift */,
+				CA1A662625D6C0FA009ACF86 /* TopHeadlinesRequest.swift */,
 			);
 			path = NetworkFiles;
 			sourceTree = "<group>";
@@ -296,14 +299,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1A65C425D15AC3009ACF86 /* NewsAPIManager.swift in Sources */,
-				CA1A660825D59FF6009ACF86 /* new.swift in Sources */,
+				CA1A660825D59FF6009ACF86 /* URLCreator.swift in Sources */,
 				22887ECD25D121EC002CFF65 /* ViewController.swift in Sources */,
-				CA1A65CF25D1739A009ACF86 /* Article.swift in Sources */,
 				CA1A65DC25D17852009ACF86 /* ErrorsFormat.swift in Sources */,
-				CA1A65D725D173D7009ACF86 /* ArticleSource.swift in Sources */,
-				CA1A65EA25D3C4B5009ACF86 /* APIKeys.swift in Sources */,
+				CA1A662225D6BF54009ACF86 /* EverythingRequest.swift in Sources */,
 				CA1A65BB25D159BC009ACF86 /* NewsResponseAPIJSON.swift in Sources */,
 				22887EC925D121EC002CFF65 /* AppDelegate.swift in Sources */,
+				CA1A663425D6C98E009ACF86 /* Protocols.swift in Sources */,
+				CA1A662725D6C0FA009ACF86 /* TopHeadlinesRequest.swift in Sources */,
+				CA1A662F25D6C1C3009ACF86 /* Endpoints.swift in Sources */,
 				22887ECB25D121EC002CFF65 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

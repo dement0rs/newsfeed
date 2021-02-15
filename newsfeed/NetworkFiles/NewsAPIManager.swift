@@ -5,61 +5,66 @@
 //  Created by Anna Oksanichenko on 08.02.2021.
 //
 
+
 import Foundation
 
 class GoogleNewsAPI {
+    
+    let baseUrl: String
+    let apiKey: String
+    let version: String
+    
+    init(baseUrl: String, apiKey: String, version: String) {
+        self.baseUrl = baseUrl
+        self.apiKey = apiKey
+        self.version = version
+    }
 
-    let creator = URLCreator()
-
-    func fetchEverything(googleNewsEverythingRequest : GoogleNewsEverythingRequest) {
-        guard let url = creator.createURL(endp: Endpoints.everything, param: googleNewsEverythingRequest) else { return }
-        self.fetchData(url: url)
+    func fetchEverythingRequest(googleNewsEverythingRequest : GoogleNewsEverythingRequest, completionHandler: @escaping (NewsResponse) -> Void) {
+        
+        let creator = URLCreator(baseUrl: baseUrl, apiKey: apiKey, version: version)
+        guard let url = creator.createURL(endpoint: Endpoints.everything, queryItems: googleNewsEverythingRequest) else {
+            return
+        }
+        self.fetchData(url: url) { response in
+            switch  response {
+            case .failure(let error):
+                print("NewsAPIManager -> fetchEverythingRequest -> \(error.code) \( error.message) ")
+                
+            case .success(let someSuccess):
+                completionHandler(someSuccess)
+            }
+        }
     }
     
-    func fetchTopHeadlines(googleNewsHeadlinesRequest: GoogleNewsHeadlinesRequest ) {
-        guard let url = creator.createURL(endp: Endpoints.topHeadlines, param: googleNewsHeadlinesRequest) else { return }
-        self.fetchData(url: url)
-
-    }
-    
-    
-    
-   private func fetchData(url: URL) {
+   private func fetchData(url: URL, completionHandler: @escaping (Result <NewsResponse, ErrorsFormat> ) -> Void) {
         let session = URLSession.shared
         let task = session.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("error! \(error.localizedDescription)")
+            
+            guard let data = data else {
+                completionHandler(.failure(ErrorsFormat(status: "Error", code: "204", message: "There is no data from this URL")))
+                return
             }
-            if let data = data, let response = response {
-                print(data)
-                print("response")
-                print(response)
-                self.parseJSON(data: data)
+            do {
+                let responseModel = try JSONDecoder().decode(NewsResponse.self, from: data)
+                completionHandler(.success(responseModel))
+            } catch {
+                print(" NewsAPIManager -> fetchData -> error in decoding \n \(error)")
             }
         }
         task.resume()
-        
-        
-        
     }
     
-  private  func parseJSON(data: Data) {
-        let dataString = String(data: data, encoding: .utf8)
-        print("dataString")
-        print(dataString!)
-        
-        let decoder = JSONDecoder()
-        do {
-            let currentData = try decoder.decode(NewsResponse.self, from: data)
-            print(currentData.articles.count)
-            print(currentData.articles[0].content)
-            print(currentData.totalResults)
-            print(currentData.articles[0].title)
-        } catch {
-            print("some error")
-            print(error)
-        }
-        
-    }
 }
 
+extension GoogleNewsAPI {
+    
+    // this is a func for fetching enother request with top headlines endpoint
+    
+    //    func fetchTopHeadlinesRequest(googleNewsHeadlinesRequest: GoogleNewsTopHeadlinesRequest ) {
+    //        guard let url = creator.createURL(endp: Endpoints.topHeadlines, param: googleNewsHeadlinesRequest) else { return }
+    //        self.fetchData(url: url, completionHandler: (Result<NewsResponse, ErrorsFormat>) -> Void)
+    //
+    //    }
+    
+}

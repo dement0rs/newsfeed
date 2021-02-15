@@ -12,14 +12,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var test2: UILabel!
     @IBOutlet weak var test3: UILabel!
     @IBOutlet weak var test4: UILabel!
-    
-    let test = GoogleNewsAPI()
+ 
+    let googleNewsAPI = GoogleNewsAPI(baseUrl: "https://newsapi.org", apiKey: "e56c97e0c2344aa2817396a7f2deb097", version: "/v2/")
+        
     var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-07", dateTo: "2021-02-07", sortCriteria: .popularity)
     override func viewDidLoad() {
         super.viewDidLoad()
         
      
-        test.fetchEverything(googleNewsEverythingRequest: everything)
+        googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (result) in
+            print(result.status)
+            print(result.totalResults)
+        }
+        
     }
 
 

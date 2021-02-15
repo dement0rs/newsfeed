@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ErrorsFormat: Codable, Error {
+struct ErrorsFormatForHTTPSRequest: Codable, Error {
     
     let status: String
     let code: String

@@ -8,12 +8,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var test1: UILabel!
+    @IBOutlet weak var test2: UILabel!
+    @IBOutlet weak var test3: UILabel!
+    @IBOutlet weak var test4: UILabel!
+ 
+    let newsViewModel = NewsViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        newsViewModel.test()
+       
+        
     }
 
 
 }
+
 

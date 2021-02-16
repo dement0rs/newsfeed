@@ -16,7 +16,7 @@
 		22887EE025D121ED002CFF65 /* newsfeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22887EDF25D121ED002CFF65 /* newsfeedTests.swift */; };
 		22887EEB25D121ED002CFF65 /* newsfeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22887EEA25D121ED002CFF65 /* newsfeedUITests.swift */; };
 		CA1A65BB25D159BC009ACF86 /* NewsResponseAPIJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65BA25D159BC009ACF86 /* NewsResponseAPIJSON.swift */; };
-		CA1A65C425D15AC3009ACF86 /* NewsAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65C325D15AC3009ACF86 /* NewsAPIManager.swift */; };
+		CA1A65C425D15AC3009ACF86 /* GoogleNewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65C325D15AC3009ACF86 /* GoogleNewsAPI.swift */; };
 		CA1A65DC25D17852009ACF86 /* ErrorsFormatForHTTPSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A65DB25D17852009ACF86 /* ErrorsFormatForHTTPSRequest.swift */; };
 		CA1A660825D59FF6009ACF86 /* URLCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A660725D59FF6009ACF86 /* URLCreator.swift */; };
 		CA1A662225D6BF54009ACF86 /* EverythingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A662125D6BF54009ACF86 /* EverythingRequest.swift */; };
@@ -59,7 +59,7 @@
 		22887EEA25D121ED002CFF65 /* newsfeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newsfeedUITests.swift; sourceTree = "<group>"; };
 		22887EEC25D121ED002CFF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA1A65BA25D159BC009ACF86 /* NewsResponseAPIJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponseAPIJSON.swift; sourceTree = "<group>"; };
-		CA1A65C325D15AC3009ACF86 /* NewsAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIManager.swift; sourceTree = "<group>"; };
+		CA1A65C325D15AC3009ACF86 /* GoogleNewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleNewsAPI.swift; sourceTree = "<group>"; };
 		CA1A65DB25D17852009ACF86 /* ErrorsFormatForHTTPSRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsFormatForHTTPSRequest.swift; sourceTree = "<group>"; };
 		CA1A660725D59FF6009ACF86 /* URLCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCreator.swift; sourceTree = "<group>"; };
 		CA1A662125D6BF54009ACF86 /* EverythingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingRequest.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		CA1A65C225D15A8D009ACF86 /* NetworkFiles */ = {
 			isa = PBXGroup;
 			children = (
-				CA1A65C325D15AC3009ACF86 /* NewsAPIManager.swift */,
+				CA1A65C325D15AC3009ACF86 /* GoogleNewsAPI.swift */,
 				CA1A660725D59FF6009ACF86 /* URLCreator.swift */,
 				CA1A662E25D6C1C3009ACF86 /* Endpoints.swift */,
 				CA1A663325D6C98D009ACF86 /* Protocols.swift */,
@@ -301,7 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA1A65C425D15AC3009ACF86 /* NewsAPIManager.swift in Sources */,
+				CA1A65C425D15AC3009ACF86 /* GoogleNewsAPI.swift in Sources */,
 				CA1A660825D59FF6009ACF86 /* URLCreator.swift in Sources */,
 				22887ECD25D121EC002CFF65 /* ViewController.swift in Sources */,
 				CA1A65DC25D17852009ACF86 /* ErrorsFormatForHTTPSRequest.swift in Sources */,

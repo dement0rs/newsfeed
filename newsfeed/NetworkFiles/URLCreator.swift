@@ -20,10 +20,10 @@ struct URLCreator {
         self.apiKey = apiKey
         self.version = version
     }
-    
+        
     func createURL(endpoint: Endpoints, queryItems: CreatorQueryItemsProtocol) -> URL? {
         var urlComponents = URLComponents(string: baseUrl)
-        urlComponents?.path = version + endpoint.rawValue
+        urlComponents?.path = "/" + version + "/" + endpoint.rawValue
         urlComponents?.queryItems =  queryItems.createdQueryItemsFromParameters()
         urlComponents?.queryItems?.append(URLQueryItem(name: "apiKey", value: apiKey)) 
         let urlString = urlComponents?.url?.absoluteURL

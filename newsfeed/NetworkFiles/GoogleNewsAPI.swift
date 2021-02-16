@@ -13,15 +13,15 @@ class GoogleNewsAPI {
     let baseUrl: String
     let apiKey: String
     let version: String
+    let creator: URLCreator
     
     init(baseUrl: String, apiKey: String, version: String) {
         self.baseUrl = baseUrl
         self.apiKey = apiKey
         self.version = version
+        creator = URLCreator(baseUrl: baseUrl, apiKey: apiKey, version: version)
     }
-    
-    lazy var creator = URLCreator(baseUrl: self.baseUrl, apiKey: self.apiKey, version: self.version)
-    
+        
     func fetchEverythingRequest(googleNewsEverythingRequest : GoogleNewsEverythingRequest, completionHandler: @escaping (Result <NewsResponse, ErrorsFormatForHTTPSRequest> ) -> Void) {
         
         guard let url = creator.createURL(endpoint: Endpoints.everything, queryItems: googleNewsEverythingRequest) else {
@@ -29,15 +29,7 @@ class GoogleNewsAPI {
         }
         
         self.fetchData(url: url) { response in
-            
-            switch  response {
-            case .failure(let error):
-                print("NewsAPIManager -> fetchEverythingRequest -> \(error.code) \( error.message) ")
-                completionHandler(.failure(error))
-                
-            case .success(let someSuccess):
-                completionHandler(.success(someSuccess))
-            }
+            completionHandler(response)
         }
     }
     

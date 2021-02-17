@@ -27,6 +27,7 @@
 		CA1A666625DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A666525DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift */; };
 		CA1A666C25DD4784009ACF86 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */; };
 		CA1A666D25DD4784009ACF86 /* NewsFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */; };
+		CA5BEAD025DD72E000AAAB64 /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5BEACF25DD72E000AAAB64 /* Empty.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		CA1A666525DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewControllerCoordinator.swift; sourceTree = "<group>"; };
 		CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 		CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedViewController.xib; sourceTree = "<group>"; };
+		CA5BEACF25DD72E000AAAB64 /* Empty.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 			children = (
 				CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */,
 				CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */,
+				CA5BEACF25DD72E000AAAB64 /* Empty.xib */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22887ED525D121ED002CFF65 /* LaunchScreen.storyboard in Resources */,
+				CA5BEAD025DD72E000AAAB64 /* Empty.xib in Resources */,
 				22887ED225D121ED002CFF65 /* Assets.xcassets in Resources */,
 				CA1A666D25DD4784009ACF86 /* NewsFeedViewController.xib in Resources */,
 			);

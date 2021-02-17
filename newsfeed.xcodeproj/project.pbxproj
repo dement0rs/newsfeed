@@ -27,7 +27,8 @@
 		CA1A666625DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A666525DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift */; };
 		CA1A666C25DD4784009ACF86 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */; };
 		CA1A666D25DD4784009ACF86 /* NewsFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */; };
-		CA5BEAD025DD72E000AAAB64 /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5BEACF25DD72E000AAAB64 /* Empty.xib */; };
+		CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */; };
+		CA5BEADA25DD8B9300AAAB64 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +75,8 @@
 		CA1A666525DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewControllerCoordinator.swift; sourceTree = "<group>"; };
 		CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 		CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedViewController.xib; sourceTree = "<group>"; };
-		CA5BEACF25DD72E000AAAB64 /* Empty.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
+		CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +194,6 @@
 			children = (
 				CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */,
 				CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */,
-				CA5BEACF25DD72E000AAAB64 /* Empty.xib */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -203,8 +204,18 @@
 				CA1A665B25DBF905009ACF86 /* Coordinator.swift */,
 				CA1A666025DBF933009ACF86 /* ApplicationCoordinator.swift */,
 				CA1A666525DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift */,
+				CA5BEADE25DD8D7B00AAAB64 /* CellForNews */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		CA5BEADE25DD8D7B00AAAB64 /* CellForNews */ = {
+			isa = PBXGroup;
+			children = (
+				CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */,
+				CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */,
+			);
+			path = CellForNews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,8 +322,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22887ED525D121ED002CFF65 /* LaunchScreen.storyboard in Resources */,
-				CA5BEAD025DD72E000AAAB64 /* Empty.xib in Resources */,
 				22887ED225D121ED002CFF65 /* Assets.xcassets in Resources */,
+				CA5BEADA25DD8B9300AAAB64 /* CollectionViewCell.xib in Resources */,
 				CA1A666D25DD4784009ACF86 /* NewsFeedViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +359,7 @@
 				22887EC925D121EC002CFF65 /* AppDelegate.swift in Sources */,
 				CA1A664525DAC6FC009ACF86 /* NewsViewModel.swift in Sources */,
 				CA1A663425D6C98E009ACF86 /* Protocols.swift in Sources */,
+				CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */,
 				CA1A666625DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift in Sources */,
 				CA1A662725D6C0FA009ACF86 /* TopHeadlinesRequest.swift in Sources */,
 				CA1A662F25D6C1C3009ACF86 /* Endpoints.swift in Sources */,

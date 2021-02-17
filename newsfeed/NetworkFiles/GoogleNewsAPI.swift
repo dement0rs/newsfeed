@@ -25,6 +25,7 @@ class GoogleNewsAPI {
     func fetchEverythingRequest(googleNewsEverythingRequest : GoogleNewsEverythingRequest, completionHandler: @escaping (Result <NewsResponse, ErrorsFormatForHTTPSRequest> ) -> Void) {
         
         guard let url = creator.createURL(endpoint: Endpoints.everything, queryItems: googleNewsEverythingRequest) else {
+          //  completionHandler(.failure(<#T##ErrorsFormatForHTTPSRequest#>))
             return
         }
         

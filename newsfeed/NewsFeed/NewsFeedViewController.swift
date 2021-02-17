@@ -24,7 +24,9 @@ class NewsFeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("test viewDidLoad")
 
+        newsViewModel.test()
         
     }
 

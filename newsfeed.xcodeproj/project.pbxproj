@@ -126,7 +126,7 @@
 				22887EC825D121EC002CFF65 /* AppDelegate.swift */,
 				22887ECA25D121EC002CFF65 /* SceneDelegate.swift */,
 				CA1A665A25DBF870009ACF86 /* Coordinators */,
-				CA1A665625DBF863009ACF86 /* ViewControllers */,
+				CA1A665625DBF863009ACF86 /* NewsFeed */,
 				CA1A664F25DBF859009ACF86 /* ViewModels */,
 				CA1A65C225D15A8D009ACF86 /* NetworkFiles */,
 				CA1A65B625D15995009ACF86 /* Models */,
@@ -185,13 +185,13 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		CA1A665625DBF863009ACF86 /* ViewControllers */ = {
+		CA1A665625DBF863009ACF86 /* NewsFeed */ = {
 			isa = PBXGroup;
 			children = (
 				CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */,
 				CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */,
 			);
-			path = ViewControllers;
+			path = NewsFeed;
 			sourceTree = "<group>";
 		};
 		CA1A665A25DBF870009ACF86 /* Coordinators */ = {

@@ -12,18 +12,17 @@ class NewsFeedViewControllerCoordinator: Coordinator {
     private let presenter: UINavigationController
     private var newsFeedViewController: NewsFeedViewController?
     let googleNewsAPI: GoogleNewsAPI
-    var everything: GoogleNewsEverythingRequest
     
-    init(presenter: UINavigationController, googleNewsAPI: GoogleNewsAPI, everything: GoogleNewsEverythingRequest) {
+    
+    init(presenter: UINavigationController, googleNewsAPI: GoogleNewsAPI) {
         self.presenter = presenter
         self.googleNewsAPI = googleNewsAPI
-        self.everything = everything
     }
 
     
     func start() {
         // google news api
-        let viewModel = NewsViewModel(googleNewsAPI: googleNewsAPI, everything: everything)
+        let viewModel = NewsViewModel(googleNewsAPI: googleNewsAPI)
         let newsFeedViewController = NewsFeedViewController(viewModel: viewModel)
         presenter.pushViewController(newsFeedViewController, animated: true)
         self.newsFeedViewController = newsFeedViewController

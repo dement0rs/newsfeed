@@ -13,16 +13,15 @@ class ApplicationCoordinator: Coordinator {
     let rootViewController: UINavigationController
     let newsFeedViewControllerCoordinator: NewsFeedViewControllerCoordinator
     let googleNewsAPI: GoogleNewsAPI
-    var everything: GoogleNewsEverythingRequest
 
     
-    init(window: UIWindow, googleNewsAPI: GoogleNewsAPI, everything: GoogleNewsEverythingRequest) {
+    init(window: UIWindow, googleNewsAPI: GoogleNewsAPI) {
         self.window = window
         self.googleNewsAPI = googleNewsAPI
-        self.everything = everything
+       
         rootViewController = UINavigationController()
         rootViewController.navigationBar.prefersLargeTitles = false
-        newsFeedViewControllerCoordinator = NewsFeedViewControllerCoordinator(presenter: rootViewController, googleNewsAPI: googleNewsAPI, everything: everything)
+        newsFeedViewControllerCoordinator = NewsFeedViewControllerCoordinator(presenter: rootViewController, googleNewsAPI: googleNewsAPI)
         
         
     }

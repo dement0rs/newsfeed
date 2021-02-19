@@ -29,6 +29,7 @@
 		CA1A666D25DD4784009ACF86 /* NewsFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */; };
 		CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */; };
 		CA5BEADA25DD8B9300AAAB64 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */; };
+		CA8A94C825DEB5BE00C0F3D0 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A94C725DEB5BE00C0F3D0 /* Identifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedViewController.xib; sourceTree = "<group>"; };
 		CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		CA8A94C725DEB5BE00C0F3D0 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				22887EC825D121EC002CFF65 /* AppDelegate.swift */,
 				22887ECA25D121EC002CFF65 /* SceneDelegate.swift */,
 				CA1A665A25DBF870009ACF86 /* Coordinators */,
+				CA5BEADE25DD8D7B00AAAB64 /* CellForNews */,
 				CA1A665625DBF863009ACF86 /* NewsFeed */,
 				CA1A664F25DBF859009ACF86 /* ViewModels */,
 				CA1A65C225D15A8D009ACF86 /* NetworkFiles */,
@@ -164,6 +167,7 @@
 			children = (
 				CA1A65BA25D159BC009ACF86 /* NewsResponseAPIJSON.swift */,
 				CA1A65DB25D17852009ACF86 /* ErrorsFormatForHTTPSRequest.swift */,
+				CA8A94C725DEB5BE00C0F3D0 /* Identifiers.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -204,7 +208,6 @@
 				CA1A665B25DBF905009ACF86 /* Coordinator.swift */,
 				CA1A666025DBF933009ACF86 /* ApplicationCoordinator.swift */,
 				CA1A666525DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift */,
-				CA5BEADE25DD8D7B00AAAB64 /* CellForNews */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				CA1A666C25DD4784009ACF86 /* NewsFeedViewController.swift in Sources */,
 				22887EC925D121EC002CFF65 /* AppDelegate.swift in Sources */,
 				CA1A664525DAC6FC009ACF86 /* NewsViewModel.swift in Sources */,
+				CA8A94C825DEB5BE00C0F3D0 /* Identifiers.swift in Sources */,
 				CA1A663425D6C98E009ACF86 /* Protocols.swift in Sources */,
 				CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */,
 				CA1A666625DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift in Sources */,

@@ -31,10 +31,7 @@ class GoogleNewsAPI {
         }
         
         self.fetchData(url: url) { response in
-           //async
-          //  DispatchQueue.main.async {
                 completionHandler(response)
-         //   }
            
         }
     }
@@ -42,9 +39,6 @@ class GoogleNewsAPI {
     private func fetchData(url: URL, completionHandler: @escaping (Result <NewsResponse, ErrorsFormatForHTTPSRequest> ) -> Void) {
         let session = URLSession.shared
         let task = session.dataTask(with: url) { (data, response, error) in
-            
-            DispatchQueue.main.async {
-                
             
                 if let response = response as? HTTPURLResponse {
                     guard let data = data  else {
@@ -62,9 +56,6 @@ class GoogleNewsAPI {
                         print(" NewsAPIManager -> fetchData -> error in decoding \n \(error)")
                     }
                 }
-            }
-        
-            
         }
         task.resume()
     }

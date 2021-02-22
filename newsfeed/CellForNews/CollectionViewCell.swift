@@ -19,15 +19,19 @@ class CollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-
-    
-    func fill(news: NewsViewModel) {
-        dateLabel.text = news.modelForNewsCell.date
-        autorLabel.text = news.modelForNewsCell.autor
-        nameOfArticleLabel.text = news.modelForNewsCell.name
-        textOfNewsLabel.text = news.modelForNewsCell.text
-        sourceOfNewsLabel.text = news.modelForNewsCell.source
         
+        
+    }
+    
+    
+    
+    func fill(news: ModelForNewsCell) {
+        dateLabel.text = news.date
+        autorLabel.text = news.autor
+        nameOfArticleLabel.text = news.title
+        textOfNewsLabel.text = news.content
+        sourceOfNewsLabel.text = news.source
+        imageView.image = UIImage(data: news.dataForImage)
+       
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DelegateProtocol {
+class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegateProtocol {
    
     
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
@@ -27,12 +27,6 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-      
-      
-       
-
        
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
@@ -41,50 +35,43 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         let  nib = UINib(nibName: "CollectionViewCell", bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: identifier.identifierForCell)
         
-        self.newsViewModel.test() {
-            
-        //    self.collectionViewOfNews.reloadData()
-        }
-     //  collectionViewOfNews.reloadData()
-      //  print("reload data")
-        print("viewdidload")
+        self.newsViewModel.test() 
+        
+        
         
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        collectionViewOfNews.reloadData()
-//        print("reload data viewdidappear")
-//    }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("viewwillappearr")
-//
-//    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewwillappear")
-////        collectionViewOfNews.delegate = self
-////        collectionViewOfNews.dataSource = self
-//        newsViewModel.test()
-//        collectionViewOfNews.reloadData()
+
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        guard let flowLayout = collectionViewOfNews.collectionViewLayout as? UICollectionViewFlowLayout else {
+           return
+         }
+        
+        if UIApplication.shared.statusBarOrientation.isLandscape {
+            flowLayout.itemSize = CGSize(width: 220, height: 220)
+          } else {
+            flowLayout.itemSize = CGSize(width: 192, height: 192)
+          }
+
+          flowLayout.invalidateLayout()
+       
     }
+    
+    
     func updatingData() {
         collectionViewOfNews.reloadData()
     }
     
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return newsViewModel.modelsForNewsCell.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewOfNews.dequeueReusableCell(withReuseIdentifier: identifier.identifierForCell, for: indexPath) as! CollectionViewCell
-        print("cell fill begin")
-        cell.fill(news: newsViewModel)
-        print("cell fill end")
-       print("cell autor \(cell.autorLabel.text)")
-
+        let cellViewModel = newsViewModel.modelsForNewsCell[indexPath.row]
+        cell.fill(news: cellViewModel)
         return cell
     }
 

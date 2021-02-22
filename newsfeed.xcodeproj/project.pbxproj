@@ -30,6 +30,7 @@
 		CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */; };
 		CA5BEADA25DD8B9300AAAB64 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */; };
 		CA8A94C825DEB5BE00C0F3D0 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A94C725DEB5BE00C0F3D0 /* Identifiers.swift */; };
+		CA8A94CE25E3966300C0F3D0 /* ModelForNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8A94CD25E3966300C0F3D0 /* ModelForNewsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		CA8A94C725DEB5BE00C0F3D0 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiers.swift; sourceTree = "<group>"; };
+		CA8A94CD25E3966300C0F3D0 /* ModelForNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelForNewsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				CA1A664425DAC6FC009ACF86 /* NewsViewModel.swift */,
+				CA8A94CD25E3966300C0F3D0 /* ModelForNewsCell.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				CA8A94C825DEB5BE00C0F3D0 /* Identifiers.swift in Sources */,
 				CA1A663425D6C98E009ACF86 /* Protocols.swift in Sources */,
 				CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */,
+				CA8A94CE25E3966300C0F3D0 /* ModelForNewsCell.swift in Sources */,
 				CA1A666625DD36F9009ACF86 /* NewsFeedViewControllerCoordinator.swift in Sources */,
 				CA1A662725D6C0FA009ACF86 /* TopHeadlinesRequest.swift in Sources */,
 				CA1A662F25D6C1C3009ACF86 /* Endpoints.swift in Sources */,

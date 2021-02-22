@@ -5,18 +5,18 @@
 //  Created by Anna Oksanichenko on 15.02.2021.
 //
 
+import Foundation
+
 protocol NewsViewModelDelegateProtocol: class {
-    func updatingData()
+    func updateDataForShowingNews()
 }
 
-import Foundation
 
 class NewsViewModel {
     
     let googleNewsAPI: GoogleNewsAPI
     
-    var index = 0
-    let totalIndex = 20
+    var indexOfAppendingArticle = 0
     var modelsForNewsCell = [ModelForNewsCell]()
     var everything = GoogleNewsEverythingRequest(topic: "Health", dateFrom: "2021-02-22", dateTo: "2021-02-22", sortCriteria: .popularity)
     
@@ -27,7 +27,7 @@ class NewsViewModel {
         self.googleNewsAPI = googleNewsAPI
     }
     
-    func test() {
+    func showNewsByEverythingRequest() {
         googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (response) in
             
             DispatchQueue.main.async {
@@ -36,11 +36,11 @@ class NewsViewModel {
                 case .success(let result) :
                     if result.totalResults > self.everything.pageSize {
                         for _ in 0...self.everything.pageSize - 1 {
-                            self.createArrayOfModels(with: result.articles[self.index])
+                            self.createArrayOfModels(with: result.articles[self.indexOfAppendingArticle])
                         }
                     } else {
                         for _ in 0...result.totalResults - 1 {
-                            self.createArrayOfModels(with: result.articles[self.index])
+                            self.createArrayOfModels(with: result.articles[self.indexOfAppendingArticle])
 
                         }
                     }
@@ -49,10 +49,10 @@ class NewsViewModel {
                     
                     
                 case .failure(let error) :
-                    print(error.code)
-                    print(error.message)
+                    print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
+    
                 }
-                self.delegate?.updatingData()
+                self.delegate?.updateDataForShowingNews()
                 
             }
         }
@@ -61,7 +61,7 @@ class NewsViewModel {
     
     func createArrayOfModels(with article: Article) {
         let modelForNewsCell = ModelForNewsCell(article: article)
-        index += 1
+        indexOfAppendingArticle += 1
         modelsForNewsCell.append(modelForNewsCell)
         
     }

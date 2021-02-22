@@ -35,13 +35,25 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         let  nib = UINib(nibName: "CollectionViewCell", bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: identifier.identifierForCell)
         
-        self.newsViewModel.test() 
-        
-        
-        
+        self.newsViewModel.showNewsByEverythingRequest() 
+    
+    }
+   
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return newsViewModel.modelsForNewsCell.count
     }
 
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionViewOfNews.dequeueReusableCell(withReuseIdentifier: identifier.identifierForCell, for: indexPath) as! CollectionViewCell
+        let cellViewModel = newsViewModel.modelsForNewsCell[indexPath.row]
+        cell.fill(news: cellViewModel)
+        return cell
+    }
 
+}
+
+extension NewsFeedViewController {
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         guard let flowLayout = collectionViewOfNews.collectionViewLayout as? UICollectionViewFlowLayout else {
@@ -58,21 +70,8 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
        
     }
     
-    
-    func updatingData() {
+    func updateDataForShowingNews() {
         collectionViewOfNews.reloadData()
     }
     
-   
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return newsViewModel.modelsForNewsCell.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionViewOfNews.dequeueReusableCell(withReuseIdentifier: identifier.identifierForCell, for: indexPath) as! CollectionViewCell
-        let cellViewModel = newsViewModel.modelsForNewsCell[indexPath.row]
-        cell.fill(news: cellViewModel)
-        return cell
-    }
-
 }

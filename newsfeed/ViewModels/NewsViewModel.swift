@@ -34,6 +34,7 @@ class NewsViewModel {
                 
                 switch response {
                 case .success(let result) :
+             
                     if result.totalResults > self.everything.pageSize {
                         for _ in 0...self.everything.pageSize - 1 {
                             self.createArrayOfModels(with: result.articles[self.indexOfAppendingArticle])
@@ -41,7 +42,7 @@ class NewsViewModel {
                     } else {
                         for _ in 0...result.totalResults - 1 {
                             self.createArrayOfModels(with: result.articles[self.indexOfAppendingArticle])
-
+                            
                         }
                     }
                     
@@ -50,7 +51,7 @@ class NewsViewModel {
                     
                 case .failure(let error) :
                     print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
-    
+                    
                 }
                 self.delegate?.updateDataForShowingNews()
                 
@@ -60,6 +61,7 @@ class NewsViewModel {
     }
     
     func createArrayOfModels(with article: Article) {
+        
         let modelForNewsCell = ModelForNewsCell(article: article)
         indexOfAppendingArticle += 1
         modelsForNewsCell.append(modelForNewsCell)

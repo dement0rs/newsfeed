@@ -9,14 +9,14 @@ import Foundation
 
 class ModelForNewsCell {
 
-    var date: String
-    var autor: String
-    var title: String
-    var content: String
-    var source: String
-    var imageString: String
-    var dataForImage = Data()
-
+    let date: String
+    let autor: String
+    let title: String
+    let content: String
+    let source: String
+    let imageString: String
+    var dataForImage : Data? 
+    
     
     init(article: Article) {
         self.date = article.publishedAt
@@ -25,14 +25,19 @@ class ModelForNewsCell {
         self.content = article.content ?? "Some text"
         self.source = article.source.name
         self.imageString = article.urlToImage ?? "Some string"
-        test()
+        createDataForImage(stringForImage: imageString)
     }
     
-    func test() {
-        guard let url = URL(string: imageString) else { return }
-        let data = try? Data(contentsOf: url)
-        dataForImage = data ?? Data()
+    func createDataForImage(stringForImage: String) {
+        guard let url = URL(string: stringForImage) else { return }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            dataForImage = data
+        } catch {
+            print("ModelForNewsCell -> createDataForImage -> can`t get data from url:  \(error.localizedDescription)")
+        }
         
     }
-
+    
 }

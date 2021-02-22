@@ -31,7 +31,12 @@ class CollectionViewCell: UICollectionViewCell {
         nameOfArticleLabel.text = news.title
         textOfNewsLabel.text = news.content
         sourceOfNewsLabel.text = news.source
-        imageView.image = UIImage(data: news.dataForImage)
+        imageView.image = UIImage(named: "picture")
+        
+        if let data = news.dataForImage {
+            imageView.image = UIImage(data: data)
+        }
+        
        
     }
 }

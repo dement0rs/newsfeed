@@ -7,14 +7,13 @@
 
 import UIKit
 
-class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegateProtocol {
+class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
    
     
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
-   
-    let identifier = Identifiers()
     let newsViewModel: NewsViewModel
+    let collectionViewCell = CollectionViewCell()
     
     init(viewModel: NewsViewModel) {
         self.newsViewModel = viewModel
@@ -32,9 +31,8 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
 
-        let  nib = UINib(nibName: "CollectionViewCell", bundle: nil)
-        collectionViewOfNews.register(nib, forCellWithReuseIdentifier: identifier.identifierForCell)
-        
+        let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
+        collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
         self.newsViewModel.showNewsByEverythingRequest() 
     
     }
@@ -44,7 +42,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionViewOfNews.dequeueReusableCell(withReuseIdentifier: identifier.identifierForCell, for: indexPath) as! CollectionViewCell
+        let cell = collectionViewOfNews.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reuseIdentifier, for: indexPath) as! CollectionViewCell
         let cellViewModel = newsViewModel.modelsForNewsCell[indexPath.row]
         cell.fill(news: cellViewModel)
         return cell

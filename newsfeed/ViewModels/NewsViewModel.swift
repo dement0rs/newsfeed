@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NewsViewModelDelegateProtocol: class {
+protocol NewsViewModelDelegate: class {
     func updateDataForShowingNews()
 }
 
@@ -16,11 +16,10 @@ class NewsViewModel {
     
     let googleNewsAPI: GoogleNewsAPI
     
-    var indexOfAppendingArticle = 0
     var modelsForNewsCell = [ModelForNewsCell]()
-    var everything = GoogleNewsEverythingRequest(topic: "Health", dateFrom: "2021-02-22", dateTo: "2021-02-22", sortCriteria: .popularity)
+    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-22", dateTo: "2021-02-22", sortCriteria: .popularity)
     
-    weak var delegate: NewsViewModelDelegateProtocol?
+    weak var delegate: NewsViewModelDelegate?
     
     
     init(googleNewsAPI: GoogleNewsAPI) {
@@ -34,18 +33,15 @@ class NewsViewModel {
                 
                 switch response {
                 case .success(let result) :
-             
-                    if result.totalResults > self.everything.pageSize {
-                        for _ in 0...self.everything.pageSize - 1 {
-                            self.createArrayOfModels(with: result.articles[self.indexOfAppendingArticle])
-                        }
-                    } else {
-                        for _ in 0...result.totalResults - 1 {
-                            self.createArrayOfModels(with: result.articles[self.indexOfAppendingArticle])
-                            
-                        }
+                    var indexOfAppendingArticle: Int = 0
+                    for article in result.articles {
+                       let modelForNewsCell = ModelForNewsCell(article: article)
+                        self.modelsForNewsCell.append(modelForNewsCell)
+                        indexOfAppendingArticle += 1
+                       if indexOfAppendingArticle > self.everything.pageSize - 1 {
+                          break
+                       }
                     }
-                    
                     print(result.totalResults)
                     
                     
@@ -57,14 +53,6 @@ class NewsViewModel {
                 
             }
         }
-        
-    }
-    
-    func createArrayOfModels(with article: Article) {
-        
-        let modelForNewsCell = ModelForNewsCell(article: article)
-        indexOfAppendingArticle += 1
-        modelsForNewsCell.append(modelForNewsCell)
         
     }
     

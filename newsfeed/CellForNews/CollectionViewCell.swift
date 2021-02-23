@@ -16,10 +16,14 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var textOfNewsLabel: UILabel!
     @IBOutlet weak var sourceOfNewsLabel: UILabel!
     
+    static let reuseIdentifier = "CollectionViewCell"
+    static let nibName = reuseIdentifier
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+      //  let identifier = "CollectionViewCell"
+
         
     }
     

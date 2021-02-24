@@ -21,7 +21,7 @@ class NewsFeedViewControllerCoordinator: Coordinator {
 
     
     func start() {
-        // google news api
+     
         let viewModel = NewsViewModel(googleNewsAPI: googleNewsAPI)
         let newsFeedViewController = NewsFeedViewController(viewModel: viewModel)
         presenter.pushViewController(newsFeedViewController, animated: true)

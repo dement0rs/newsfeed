@@ -7,29 +7,54 @@
 
 import Foundation
 
+protocol NewsViewModelDelegate: class {
+    func updateDataForShowingNews()
+}
+
+
 class NewsViewModel {
     
     let googleNewsAPI: GoogleNewsAPI
-    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-18", dateTo: "2021-02-18", sortCriteria: .popularity)
+    
+    var modelsForNewsCell = [ModelForNewsCell]()
+    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-22", dateTo: "2021-02-22", sortCriteria: .popularity)
+    
+    weak var delegate: NewsViewModelDelegate?
     
     
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
     }
     
-    func test() {
+    func showNewsByEverythingRequest() {
         googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (response) in
-            switch response {
-            case .success(let result) :
-                print(result.status)
-                print(result.totalResults)
-            case .failure(let error) :
-                print(error.code)
-                print(error.message)
-            }
             
+            DispatchQueue.main.async {
+                
+                switch response {
+                case .success(let result) :
+                    var indexOfAppendingArticle: Int = 0
+                    for article in result.articles {
+                       let modelForNewsCell = ModelForNewsCell(article: article)
+                        self.modelsForNewsCell.append(modelForNewsCell)
+                        indexOfAppendingArticle += 1
+                       if indexOfAppendingArticle > self.everything.pageSize - 1 {
+                          break
+                       }
+                    }
+                    print(result.totalResults)
+                    
+                    
+                case .failure(let error) :
+                    print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
+                    
+                }
+                self.delegate?.updateDataForShowingNews()
+                
+            }
         }
+        
     }
     
-    
 }
+

@@ -10,7 +10,7 @@
 import Foundation
 
 struct GoogleNewsEverythingRequest: CreatorQueryItemsProtocol {
-    
+   //page page size
     enum SortCriteria: String {
         case popularity = "popularity"
         case relevancy = "relevancy"
@@ -21,6 +21,8 @@ struct GoogleNewsEverythingRequest: CreatorQueryItemsProtocol {
     let dateFrom: String
     let dateTo: String
     let sortCriteria: SortCriteria
+    let pageSize = 20
+    let page = 1
 }
 
 extension GoogleNewsEverythingRequest {
@@ -31,6 +33,9 @@ extension GoogleNewsEverythingRequest {
             URLQueryItem(name: "from", value: self.dateFrom),
             URLQueryItem(name: "to", value: self.dateTo),
             URLQueryItem(name: "sortBy", value: self.sortCriteria.rawValue),
+            URLQueryItem(name: "pageSize", value: "\(self.pageSize)"),
+            URLQueryItem(name: "page", value: "\(self.page)"),
+
         ]
     }
 }

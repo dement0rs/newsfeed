@@ -10,6 +10,7 @@ import UIKit
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
     
+    @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
     let newsViewModel: NewsViewModel
@@ -30,10 +31,13 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
-        
+        isLoadingInProgress(loading: newsViewModel.isIndicatorOfDownloadingHidden)
+
         let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
-        self.newsViewModel.showNewsByEverythingRequest() 
+        self.newsViewModel.showNewsByEverythingRequest()
+        indicatorrOfDownloading.isHidden = newsViewModel.isIndicatorOfDownloadingHidden
+
         
     }
     
@@ -51,7 +55,14 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
-    
+    func isLoadingInProgress(loading: Bool) {
+        DispatchQueue.main.async {
+            self.indicatorrOfDownloading.isHidden = self.newsViewModel.isIndicatorOfDownloadingHidden
+            self.indicatorrOfDownloading.isHidden ? self.indicatorrOfDownloading.stopAnimating() : self.indicatorrOfDownloading.startAnimating()
+        }
+        
+        
+    }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -60,7 +71,7 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
         let totalWidth: CGFloat = collectionViewOfNews.frame.size.width
         let totalHeight: CGFloat = 190
         let cellsCountForHorizontalLayout: CGFloat = 3
-        let cellsCountForVerticalLayout: CGFloat = 2
+        let cellsCountForVerticalLayout: CGFloat = 4
         let spacing: CGFloat = 17
         
         if collectionViewOfNews.frame.width < collectionViewOfNews.frame.height {

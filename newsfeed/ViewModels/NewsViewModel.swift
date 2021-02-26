@@ -9,6 +9,7 @@ import Foundation
 
 protocol NewsViewModelDelegate: class {
     func updateDataForShowingNews()
+    func isLoadingInProgress(loading: Bool)
 }
 
 
@@ -20,7 +21,11 @@ class NewsViewModel {
     var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-22", dateTo: "2021-02-22", sortCriteria: .popularity)
     
     weak var delegate: NewsViewModelDelegate?
-    
+    var isIndicatorOfDownloadingHidden = true {
+        didSet {
+            delegate?.isLoadingInProgress(loading: isIndicatorOfDownloadingHidden)
+        }
+    }
     
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
@@ -28,7 +33,8 @@ class NewsViewModel {
     
     func showNewsByEverythingRequest() {
         googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (response) in
-            
+            self.isIndicatorOfDownloadingHidden = false
+
             DispatchQueue.main.async {
                 
                 switch response {
@@ -49,6 +55,8 @@ class NewsViewModel {
                     print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
                     
                 }
+                self.isIndicatorOfDownloadingHidden = true
+
                 self.delegate?.updateDataForShowingNews()
                 
             }

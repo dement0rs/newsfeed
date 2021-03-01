@@ -68,40 +68,32 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
         let totalWidth: CGFloat = collectionViewOfNews.frame.size.width
         let totalHeight: CGFloat = 190
-        let cellsCountForHorizontalLayout: CGFloat = 3
-        let cellsCountForVerticalLayout: CGFloat = 4
-        let spacing: CGFloat = 17
-        
+        let spacing: CGFloat = 35
+        var currentCellWidth: CGFloat = 0
+        var cellsCount : CGFloat = 2
+        let countOfSpacing =  cellsCount - 1
+
         if collectionViewOfNews.frame.width < collectionViewOfNews.frame.height {
             if  indexPath.row % 7 == 0 {
-                layout.itemSize = CGSize(width: totalWidth - spacing, height: totalHeight)
-                return layout.itemSize
+                currentCellWidth = totalWidth - spacing
+            } else {
+                currentCellWidth = (totalWidth - spacing * countOfSpacing ) / cellsCount
             }
-            layout.itemSize = CGSize(width: (totalWidth - spacing) / cellsCountForVerticalLayout , height: totalHeight)
-            return layout.itemSize
+        } else {
+            cellsCount = 3
+            if  indexPath.row % 7 == 0 {
+                currentCellWidth = totalWidth - spacing
+            } else {
+                currentCellWidth = (totalWidth - spacing * countOfSpacing ) / cellsCount
+            }
         }
-        if  indexPath.row % 7 == 0 {
-            layout.itemSize = CGSize(width: totalWidth - spacing, height: totalHeight)
-            return layout.itemSize
-
-        }
-        layout.itemSize = CGSize(width: (totalWidth - spacing) / cellsCountForHorizontalLayout, height: totalHeight)
+        
+        layout.itemSize = CGSize(width: currentCellWidth, height: totalHeight)
         return layout.itemSize
         
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    func collectionView(_ collectionView: UICollectionView, layout
-                            collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
     
     func updateDataForShowingNews() {

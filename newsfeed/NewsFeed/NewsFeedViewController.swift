@@ -41,6 +41,11 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
+    override func viewWillLayoutSubviews() {
+            super.viewWillLayoutSubviews()
+            collectionViewOfNews.collectionViewLayout.invalidateLayout()
+        }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsViewModel.modelsForNewsCell.count
     }
@@ -55,14 +60,14 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
+    
     func isLoadingInProgress(loading: Bool) {
         DispatchQueue.main.async {
             self.indicatorrOfDownloading.isHidden = self.newsViewModel.isIndicatorOfDownloadingHidden
             self.indicatorrOfDownloading.isHidden ? self.indicatorrOfDownloading.stopAnimating() : self.indicatorrOfDownloading.startAnimating()
         }
-        
-        
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

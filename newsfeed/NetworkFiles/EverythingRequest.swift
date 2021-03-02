@@ -21,7 +21,7 @@ struct GoogleNewsEverythingRequest: CreatorQueryItemsProtocol {
     let dateFrom: String
     let dateTo: String
     let sortCriteria: SortCriteria
-    let pageSize = 20
+    let pageSize = 22
     let page = 1
 }
 

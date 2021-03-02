@@ -14,7 +14,7 @@ class ModelForNewsCell {
     let title: String
     let content: String
     let source: String
-    let imageString: String
+    let imageURL: String
     var dataForImage : Data? 
     
     
@@ -24,8 +24,8 @@ class ModelForNewsCell {
         self.title = article.title
         self.content = article.content ?? "Some text"
         self.source = article.source.name
-        self.imageString = article.urlToImage ?? "Some string"
-        createDataForImage(stringForImage: imageString)
+        self.imageURL = article.urlToImage ?? "Some string"
+        createDataForImage(stringForImage: imageURL)
     }
     
     func createDataForImage(stringForImage: String) {

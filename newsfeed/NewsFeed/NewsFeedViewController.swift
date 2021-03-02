@@ -8,8 +8,10 @@
 import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
-   
     
+    @IBOutlet weak var connectionStateImage: UIImageView!
+    @IBOutlet weak var connectionStateLabel: UILabel!
+    @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
     let newsViewModel: NewsViewModel
@@ -26,46 +28,57 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
+        isLoadingInProgress(loading: newsViewModel.isIndicatorOfDownloadingHidden)
 
         let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
-        self.newsViewModel.showNewsByEverythingRequest() 
-    
+        self.newsViewModel.showNewsByEverythingRequest()
+        indicatorrOfDownloading.isHidden = newsViewModel.isIndicatorOfDownloadingHidden
+
+        
     }
-   
+    
+    override func viewWillLayoutSubviews() {
+            super.viewWillLayoutSubviews()
+            collectionViewOfNews.collectionViewLayout.invalidateLayout()
+        }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsViewModel.modelsForNewsCell.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewOfNews.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reuseIdentifier, for: indexPath) as! CollectionViewCell
         let cellViewModel = newsViewModel.modelsForNewsCell[indexPath.row]
         cell.fill(news: cellViewModel)
         return cell
     }
-
+    
 }
 
-extension NewsFeedViewController {
+extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        guard let flowLayout = collectionViewOfNews.collectionViewLayout as? UICollectionViewFlowLayout else {
-           return
-         }
+    func isLoadingInProgress(loading: Bool) {
+        DispatchQueue.main.async {
+            self.indicatorrOfDownloading.isHidden = self.newsViewModel.isIndicatorOfDownloadingHidden
+            self.indicatorrOfDownloading.isHidden ? self.indicatorrOfDownloading.stopAnimating() : self.indicatorrOfDownloading.startAnimating()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if UIApplication.shared.statusBarOrientation.isLandscape {
-            flowLayout.itemSize = CGSize(width: 220, height: 220)
-          } else {
-            flowLayout.itemSize = CGSize(width: 192, height: 192)
-          }
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
-          flowLayout.invalidateLayout()
-       
+        let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
+        layout.itemSize =  itemSizeForEachCell
+        return  layout.itemSize
+        
     }
     
     func updateDataForShowingNews() {

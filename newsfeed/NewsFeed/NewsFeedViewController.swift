@@ -9,7 +9,8 @@ import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
-    
+    @IBOutlet weak var connectionStateImage: UIImageView!
+    @IBOutlet weak var connectionStateLabel: UILabel!
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
@@ -74,34 +75,11 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
-//        let itemSizeForEachCell = NewsFeedViewController.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
         let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
         layout.itemSize =  itemSizeForEachCell
         return  layout.itemSize
         
     }
-    
-//    static func calculateItemSize(for itemNumber: Int,
-//                                  in boxSize: CGSize,
-//                                  minHeight: CGFloat = 220,
-//                                  horisontalSpasing: CGFloat = 10) -> CGSize {
-//        let fullWidth = boxSize.width
-//        let itemsCountForVerticalLayout: CGFloat = 2
-//        let itemsCountForHorisontalLayout: CGFloat = 3
-//        let fullWidthItemMask  = 7
-//        var ItemsInRRow = CGFloat( itemsCountForVerticalLayout)
-//
-//        if boxSize.width >  boxSize.height {
-//            ItemsInRRow = CGFloat( itemsCountForHorisontalLayout)
-//        }
-//        let width = (boxSize.width - horisontalSpasing * (ItemsInRRow + 1)) / ItemsInRRow
-//
-//        if (itemNumber + fullWidthItemMask) % fullWidthItemMask == 0 {
-//            return  CGSize(width: fullWidth, height: minHeight)
-//        }
-//        return  CGSize(width: width, height: minHeight)
-//
-//    }
     
     func updateDataForShowingNews() {
         collectionViewOfNews.reloadData()

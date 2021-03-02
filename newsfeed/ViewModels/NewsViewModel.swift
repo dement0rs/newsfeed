@@ -19,7 +19,7 @@ class NewsViewModel {
     let googleNewsAPI: GoogleNewsAPI
     
     var modelsForNewsCell = [ModelForNewsCell]()
-    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-22", dateTo: "2021-02-22", sortCriteria: .popularity)
+    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-02", dateTo: "2021-03-02", sortCriteria: .popularity)
     
     weak var delegate: NewsViewModelDelegate?
     var isIndicatorOfDownloadingHidden = true {

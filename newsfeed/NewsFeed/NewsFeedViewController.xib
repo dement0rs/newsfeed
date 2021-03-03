@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsFeedViewController" customModule="newsfeed" customModuleProvider="target">
             <connections>
                 <outlet property="collectionViewOfNews" destination="ScY-5B-zgG" id="8TV-sA-uls"/>
+                <outlet property="connectionStatusLabel" destination="VAG-1X-fcc" id="e2s-k0-MsI"/>
                 <outlet property="indicatorrOfDownloading" destination="Kzi-4O-9ln" id="1Or-NX-0No"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,7 +24,7 @@
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ScY-5B-zgG">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" red="0.63931477110000001" green="0.80128997099999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="YoP-XW-gDm">
                         <size key="itemSize" width="187" height="187"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,17 +35,27 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Kzi-4O-9ln">
                     <rect key="frame" x="156" y="347" width="63" height="37"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAG-1X-fcc">
+                    <rect key="frame" x="60" y="201" width="254" height="138"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="VAG-1X-fcc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="201" id="AtK-lO-cfC"/>
                 <constraint firstItem="Kzi-4O-9ln" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="347" id="C9m-on-c0W"/>
                 <constraint firstItem="ScY-5B-zgG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FBn-82-uDi"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VAG-1X-fcc" secondAttribute="trailing" constant="61" id="LW1-WV-D7C"/>
                 <constraint firstItem="ScY-5B-zgG" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="OXC-s7-zvD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Kzi-4O-9ln" secondAttribute="bottom" constant="283" id="YV4-Pa-WtP"/>
+                <constraint firstItem="VAG-1X-fcc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="60" id="dRP-Wn-duo"/>
                 <constraint firstItem="Kzi-4O-9ln" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="156" id="iKo-eH-uZe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ScY-5B-zgG" secondAttribute="trailing" id="nAX-Qs-n5U"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Kzi-4O-9ln" secondAttribute="trailing" constant="156" id="rXl-vQ-dqd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VAG-1X-fcc" secondAttribute="bottom" constant="328" id="t6S-CQ-pDo"/>
                 <constraint firstItem="ScY-5B-zgG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="yws-k6-gBE"/>
             </constraints>
             <point key="canvasLocation" x="20" y="62.518740629685162"/>

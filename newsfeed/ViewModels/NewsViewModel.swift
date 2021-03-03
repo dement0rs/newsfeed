@@ -11,44 +11,51 @@ import CoreGraphics
 protocol NewsViewModelDelegate: class {
     func updateDataForShowingNews()
     func isLoadingInProgress(loading: Bool)
-    func changeColorOfView(time: Int)
+    func setConnectionState(state: NewsViewModel.DataAvailabilityState )
 }
+
+
 
 
 class NewsViewModel {
     
-    enum DataAvailabilityState: String {
-        case noData =  "noData"
-        case inProgress = "inProgress"
-        case done = "done"
-        case start  = "start"
+    enum DataAvailabilityState {
+        case noData
+        case inProgress
+        case done
+        
     }
-    
+   
     
     let googleNewsAPI: GoogleNewsAPI
     
-    var dataState: DataAvailabilityState = .start
+    var dataState : DataAvailabilityState {
+        didSet {
+            delegate?.setConnectionState(state: dataState)
+            delegate?.isLoadingInProgress(loading: isIndicatorOfDownloadingHidden)
+        }
+    }
     
     var modelsForNewsCell = [ModelForNewsCell]()
     var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-02", dateTo: "2021-03-02", sortCriteria: .popularity)
     
     weak var delegate: NewsViewModelDelegate?
-    var isIndicatorOfDownloadingHidden = true {
-        didSet {
-            delegate?.isLoadingInProgress(loading: isIndicatorOfDownloadingHidden)
-        }
-    }
+    var isIndicatorOfDownloadingHidden = false
+//    var isIndicatorOfDownloadingHidden = true {
+//        didSet {
+//            delegate?.isLoadingInProgress(loading: isIndicatorOfDownloadingHidden)
+//        }
+//    }
     
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
+        self.dataState = .noData
     }
     
     func showNewsByEverythingRequest() {
-        dataState = .noData
-        print(dataState.rawValue)
+        
         googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (response) in
             self.dataState = .inProgress
-            print(self.dataState.rawValue)
             self.isIndicatorOfDownloadingHidden = false
 
             DispatchQueue.main.async {
@@ -68,11 +75,11 @@ class NewsViewModel {
                 case .failure(let error) :
                     print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
                 }
+                self.dataState = .done
                 self.isIndicatorOfDownloadingHidden = true
                 self.delegate?.updateDataForShowingNews()
-                self.dataState = .done
-                print(self.dataState.rawValue)
-                self.delegate?.changeColorOfView(time:  self.getCurrentTime())
+                
+              
             }
         }
         
@@ -98,15 +105,6 @@ class NewsViewModel {
         }
         return  CGSize(width: width, height: minHeight)
 
-    }
-    
-    func getCurrentTime() -> Int {
-        let date = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        print(hour, minutes)
-        return minutes
     }
     
     

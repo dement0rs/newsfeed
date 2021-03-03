@@ -9,8 +9,8 @@ import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
  
-    
  
+    @IBOutlet weak var connectionStatusLabel: UILabel!
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
@@ -61,18 +61,38 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
-    func changeColorOfView(time: Int) {
-        if time % 2 == 0 {
-            view.backgroundColor = .green
-            collectionViewOfNews.isHidden = true
-        } else {
+    
+    func setConnectionState(state: NewsViewModel.DataAvailabilityState) {
+        switch state {
+        case .noData:
+            print("no data")
+            self.connectionStatusLabel.text = "Can`t get data from server, try again"
+           collectionViewOfNews.isHidden = true
+            view.backgroundColor = .red
+            
+        case .inProgress:
+            DispatchQueue.main.async {
+                self.collectionViewOfNews.isHidden = true
+                self.view.backgroundColor = .green
+
+            }
+            
+        print("in progress")
+        case .done:
+            self.connectionStatusLabel.isHidden = true
+            self.collectionViewOfNews.isHidden = false
+            self.view.backgroundColor = .blue
             collectionViewOfNews.backgroundColor = .blue
-        }
+        print("done")
     }
+    
+    }
+ 
     
     func isLoadingInProgress(loading: Bool) {
         DispatchQueue.main.async {
             self.indicatorrOfDownloading.isHidden = self.newsViewModel.isIndicatorOfDownloadingHidden
+            print(self.indicatorrOfDownloading.isHidden)
             self.indicatorrOfDownloading.isHidden ? self.indicatorrOfDownloading.stopAnimating() : self.indicatorrOfDownloading.startAnimating()
         }
     }
@@ -94,3 +114,4 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+

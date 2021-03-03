@@ -8,9 +8,9 @@
 import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
+ 
     
-    @IBOutlet weak var connectionStateImage: UIImageView!
-    @IBOutlet weak var connectionStateLabel: UILabel!
+ 
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
@@ -61,6 +61,14 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
+    func changeColorOfView(time: Int) {
+        if time % 2 == 0 {
+            view.backgroundColor = .green
+            collectionViewOfNews.isHidden = true
+        } else {
+            collectionViewOfNews.backgroundColor = .blue
+        }
+    }
     
     func isLoadingInProgress(loading: Bool) {
         DispatchQueue.main.async {

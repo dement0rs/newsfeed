@@ -8,8 +8,9 @@
 import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
- 
- 
+    
+    
+    @IBOutlet weak var reconnectedButton: UIButton!
     @IBOutlet weak var connectionStatusLabel: UILabel!
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
@@ -32,20 +33,22 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
-        isLoadingInProgress(loading: newsViewModel.isIndicatorOfDownloadingHidden)
-
+        
         let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+        stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
-        indicatorrOfDownloading.isHidden = newsViewModel.isIndicatorOfDownloadingHidden
-
         
     }
     
+    @IBAction func reconnectedClicked(_ sender: UIButton) {
+        stateChanged(state: newsViewModel.dataState)
+        newsViewModel.showNewsByEverythingRequest()
+    }
     override func viewWillLayoutSubviews() {
-            super.viewWillLayoutSubviews()
-            collectionViewOfNews.collectionViewLayout.invalidateLayout()
-        }
+        super.viewWillLayoutSubviews()
+        collectionViewOfNews.collectionViewLayout.invalidateLayout()
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsViewModel.modelsForNewsCell.count
@@ -62,39 +65,34 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
-    func setConnectionState(state: NewsViewModel.DataAvailabilityState) {
+    func stateChanged(state: NewsViewModel.DataAvailabilityState) {
         switch state {
-        case .noData:
-            print("no data")
+        
+        case .empty:
             self.connectionStatusLabel.text = "Can`t get data from server, try again"
-           collectionViewOfNews.isHidden = true
+            self.indicatorrOfDownloading.isHidden = true
+            collectionViewOfNews.isHidden = true
+            reconnectedButton.isHidden = false
             view.backgroundColor = .red
             
-        case .inProgress:
-            DispatchQueue.main.async {
-                self.collectionViewOfNews.isHidden = true
-                self.view.backgroundColor = .green
-
-            }
+        case .loading:
+            self.connectionStatusLabel.text = "Loading..."
+            self.indicatorrOfDownloading.isHidden = false
+            self.indicatorrOfDownloading.startAnimating()
+            self.collectionViewOfNews.isHidden = true
+            reconnectedButton.isHidden = true
+            self.view.backgroundColor = .green
             
-        print("in progress")
-        case .done:
+        case .showData:
+            self.indicatorrOfDownloading.isHidden = true
+            self.indicatorrOfDownloading.stopAnimating()
             self.connectionStatusLabel.isHidden = true
             self.collectionViewOfNews.isHidden = false
+            reconnectedButton.isHidden = true
             self.view.backgroundColor = .blue
             collectionViewOfNews.backgroundColor = .blue
-        print("done")
-    }
-    
-    }
- 
-    
-    func isLoadingInProgress(loading: Bool) {
-        DispatchQueue.main.async {
-            self.indicatorrOfDownloading.isHidden = self.newsViewModel.isIndicatorOfDownloadingHidden
-            print(self.indicatorrOfDownloading.isHidden)
-            self.indicatorrOfDownloading.isHidden ? self.indicatorrOfDownloading.stopAnimating() : self.indicatorrOfDownloading.startAnimating()
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -102,7 +100,7 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-
+        
         let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
         layout.itemSize =  itemSizeForEachCell
         return  layout.itemSize

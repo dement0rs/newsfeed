@@ -10,7 +10,7 @@ import UIKit
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
     
-    @IBOutlet weak var reconnectedButton: UIButton!
+    @IBOutlet weak var reconnectButton: UIButton!
     @IBOutlet weak var connectionStatusLabel: UILabel!
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
@@ -41,10 +41,12 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
-    @IBAction func reconnectedClicked(_ sender: UIButton) {
+    
+    @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)
         newsViewModel.showNewsByEverythingRequest()
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionViewOfNews.collectionViewLayout.invalidateLayout()
@@ -72,7 +74,7 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
             self.connectionStatusLabel.text = "Can`t get data from server, try again"
             self.indicatorrOfDownloading.isHidden = true
             collectionViewOfNews.isHidden = true
-            reconnectedButton.isHidden = false
+            reconnectButton.isHidden = false
             view.backgroundColor = .red
             
         case .loading:
@@ -80,15 +82,15 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
             self.indicatorrOfDownloading.isHidden = false
             self.indicatorrOfDownloading.startAnimating()
             self.collectionViewOfNews.isHidden = true
-            reconnectedButton.isHidden = true
+            reconnectButton.isHidden = true
             self.view.backgroundColor = .green
             
-        case .showData:
+        case .available:
             self.indicatorrOfDownloading.isHidden = true
             self.indicatorrOfDownloading.stopAnimating()
             self.connectionStatusLabel.isHidden = true
             self.collectionViewOfNews.isHidden = false
-            reconnectedButton.isHidden = true
+            reconnectButton.isHidden = true
             self.view.backgroundColor = .blue
             collectionViewOfNews.backgroundColor = .blue
         }

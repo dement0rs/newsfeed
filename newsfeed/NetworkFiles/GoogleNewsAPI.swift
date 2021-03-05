@@ -28,7 +28,6 @@ class GoogleNewsAPI {
             let error = ErrorsFormatForHTTPSRequest(status: "Error",
                                                     code: "Status code ",
                                                     message: "Can`t create URL with input endpoint and QueryItems")
-            //disp
             DispatchQueue.main.async {
                 completionHandler(.failure(error))
                 print(" NewsAPIManager -> fetchEverythingRequest -> Can`t create URL with input endpoint and QueryItems ")
@@ -39,7 +38,6 @@ class GoogleNewsAPI {
         }
         
         self.fetchData(url: url) { response in
-            //disp
             DispatchQueue.main.async {
                 completionHandler(response)
             }

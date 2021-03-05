@@ -18,7 +18,7 @@ class NewsViewModel {
     enum DataAvailabilityState {
         case empty
         case loading
-        case showData
+        case available
         
     }
     
@@ -57,7 +57,7 @@ class NewsViewModel {
             case .failure(let error) :
                 print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
             }
-            self.dataState = .showData
+            self.dataState = .available
             self.delegate?.updateDataForShowingNews()
         }
     }

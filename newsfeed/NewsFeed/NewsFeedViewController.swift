@@ -9,8 +9,9 @@ import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
-    @IBOutlet weak var connectionStateImage: UIImageView!
-    @IBOutlet weak var connectionStateLabel: UILabel!
+    
+    @IBOutlet weak var reconnectButton: UIButton!
+    @IBOutlet weak var connectionStatusLabel: UILabel!
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
     @IBOutlet weak var collectionViewOfNews: UICollectionView!
     
@@ -32,20 +33,24 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
-        isLoadingInProgress(loading: newsViewModel.isIndicatorOfDownloadingHidden)
-
+        
         let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+        stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
-        indicatorrOfDownloading.isHidden = newsViewModel.isIndicatorOfDownloadingHidden
-
         
     }
     
+    
+    @IBAction func reconnectClicked(_ sender: UIButton) {
+        stateChanged(state: newsViewModel.dataState)
+        newsViewModel.showNewsByEverythingRequest()
+    }
+    
     override func viewWillLayoutSubviews() {
-            super.viewWillLayoutSubviews()
-            collectionViewOfNews.collectionViewLayout.invalidateLayout()
-        }
+        super.viewWillLayoutSubviews()
+        collectionViewOfNews.collectionViewLayout.invalidateLayout()
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return newsViewModel.modelsForNewsCell.count
@@ -62,11 +67,34 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
-    func isLoadingInProgress(loading: Bool) {
-        DispatchQueue.main.async {
-            self.indicatorrOfDownloading.isHidden = self.newsViewModel.isIndicatorOfDownloadingHidden
-            self.indicatorrOfDownloading.isHidden ? self.indicatorrOfDownloading.stopAnimating() : self.indicatorrOfDownloading.startAnimating()
+    func stateChanged(state: NewsViewModel.DataAvailabilityState) {
+        switch state {
+        
+        case .empty:
+            self.connectionStatusLabel.text = "Can`t get data from server, try again"
+            self.indicatorrOfDownloading.isHidden = true
+            collectionViewOfNews.isHidden = true
+            reconnectButton.isHidden = false
+            view.backgroundColor = .red
+            
+        case .loading:
+            self.connectionStatusLabel.text = "Loading..."
+            self.indicatorrOfDownloading.isHidden = false
+            self.indicatorrOfDownloading.startAnimating()
+            self.collectionViewOfNews.isHidden = true
+            reconnectButton.isHidden = true
+            self.view.backgroundColor = .green
+            
+        case .available:
+            self.indicatorrOfDownloading.isHidden = true
+            self.indicatorrOfDownloading.stopAnimating()
+            self.connectionStatusLabel.isHidden = true
+            self.collectionViewOfNews.isHidden = false
+            reconnectButton.isHidden = true
+            self.view.backgroundColor = .blue
+            collectionViewOfNews.backgroundColor = .blue
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -74,7 +102,7 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-
+        
         let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
         layout.itemSize =  itemSizeForEachCell
         return  layout.itemSize
@@ -86,3 +114,4 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+

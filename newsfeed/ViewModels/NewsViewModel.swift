@@ -10,67 +10,68 @@ import CoreGraphics
 
 protocol NewsViewModelDelegate: class {
     func updateDataForShowingNews()
-    func isLoadingInProgress(loading: Bool)
+    func stateChanged(state: NewsViewModel.DataAvailabilityState )
 }
-
 
 class NewsViewModel {
     
-    let googleNewsAPI: GoogleNewsAPI
-    
-    var modelsForNewsCell = [ModelForNewsCell]()
-    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-02", dateTo: "2021-03-02", sortCriteria: .popularity)
+    enum DataAvailabilityState {
+        case empty
+        case loading
+        case available
+        
+    }
     
     weak var delegate: NewsViewModelDelegate?
-    var isIndicatorOfDownloadingHidden = true {
+    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-05", dateTo: "2021-03-05", sortCriteria: .popularity)
+    
+    var modelsForNewsCell = [ModelForNewsCell]()
+    let googleNewsAPI: GoogleNewsAPI
+    var dataState : DataAvailabilityState {
         didSet {
-            delegate?.isLoadingInProgress(loading: isIndicatorOfDownloadingHidden)
+            delegate?.stateChanged(state: dataState)
         }
     }
     
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
+        self.dataState = .empty
     }
     
     func showNewsByEverythingRequest() {
-        googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (response) in
-            self.isIndicatorOfDownloadingHidden = false
-
-            DispatchQueue.main.async {
-                
-                switch response {
-                case .success(let result) :
-                    var indexOfAppendingArticle: Int = 0
-                    for article in result.articles {
-                       let modelForNewsCell = ModelForNewsCell(article: article)
-                        self.modelsForNewsCell.append(modelForNewsCell)
-                        indexOfAppendingArticle += 1
-                       if indexOfAppendingArticle > self.everything.pageSize - 1 {
-                          break
-                       }
-                    }
-                    print(result.totalResults)
-                case .failure(let error) :
-                    print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
-                }
-                self.isIndicatorOfDownloadingHidden = true
-                self.delegate?.updateDataForShowingNews()
-                
-            }
-        }
         
+        self.dataState = .loading
+        googleNewsAPI.fetchEverythingRequest(googleNewsEverythingRequest: everything) { (response) in
+            
+            switch response {
+            case .success(let result) :
+                var indexOfAppendingArticle: Int = 0
+                for article in result.articles {
+                    let modelForNewsCell = ModelForNewsCell(article: article)
+                    self.modelsForNewsCell.append(modelForNewsCell)
+                    indexOfAppendingArticle += 1
+                    if indexOfAppendingArticle > self.everything.pageSize - 1 {
+                        break
+                    }
+                }
+            case .failure(let error) :
+                print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
+            }
+            self.dataState = .available
+            self.delegate?.updateDataForShowingNews()
+        }
     }
     
     func calculateItemSize(for itemNumber: Int,
-                                  in boxSize: CGSize,
-                                  minHeight: CGFloat = 220,
-                                  horisontalSpasing: CGFloat = 10) -> CGSize {
+                           in boxSize: CGSize,
+                           minHeight: CGFloat = 220,
+                           horisontalSpasing: CGFloat = 10) -> CGSize {
         let fullWidth = boxSize.width
         let itemsCountForVerticalLayout: CGFloat = 2
         let itemsCountForHorisontalLayout: CGFloat = 3
         let fullWidthItemMask  = 7
         var ItemsInRRow = CGFloat( itemsCountForVerticalLayout)
-
+        
         if boxSize.width >  boxSize.height {
             ItemsInRRow = CGFloat( itemsCountForHorisontalLayout)
         }
@@ -80,7 +81,7 @@ class NewsViewModel {
             return  CGSize(width: fullWidth, height: minHeight)
         }
         return  CGSize(width: width, height: minHeight)
-
+        
     }
     
     

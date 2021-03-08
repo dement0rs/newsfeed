@@ -4,7 +4,36 @@
 //
 //  Created by Anna Oksanichenko on 17.02.2021.
 //
-
+//import UIKit
+//class ViewController: UIViewController {
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        NotificationCenter.default
+//            .addObserver(self,
+//                         selector: #selector(statusManager),
+//                         name: .flagsChanged,
+//                         object: nil)
+//        updateUserInterface()
+//    }
+//    func updateUserInterface() {
+//        switch Network.reachability.status {
+//        case .unreachable:
+//            view.backgroundColor = .red
+//        case .wwan:
+//            view.backgroundColor = .yellow
+//        case .wifi:
+//            view.backgroundColor = .green
+//        }
+//        print("Reachability Summary")
+//        print("Status:", Network.reachability.status)
+//        print("HostName:", Network.reachability.hostname ?? "nil")
+//        print("Reachable:", Network.reachability.isReachable)
+//        print("Wifi:", Network.reachability.isReachableViaWiFi)
+//    }
+//    @objc func statusManager(_ notification: Notification) {
+//        updateUserInterface()
+//    }
+//}
 import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
@@ -39,8 +68,35 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
         
+        
+        
+        
+        NotificationCenter.default
+            .addObserver(self,
+                         selector: #selector(statusManager),
+                         name: .flagsChanged,
+                         object: nil)
+        updateUserInterface()
+        
     }
-    
+    func updateUserInterface() {
+        switch Network.reachability.status {
+        case .unreachable:
+            view.backgroundColor = .red
+        case .wwan:
+            view.backgroundColor = .yellow
+        case .wifi:
+            view.backgroundColor = .green
+        }
+        print("Reachability Summary")
+        print("Status:", Network.reachability.status)
+        print("HostName:", Network.reachability.hostname ?? "nil")
+        print("Reachable:", Network.reachability.isReachable)
+        print("Wifi:", Network.reachability.isReachableViaWiFi)
+    }
+    @objc func statusManager(_ notification: Notification) {
+        updateUserInterface()
+    }
     
     @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)

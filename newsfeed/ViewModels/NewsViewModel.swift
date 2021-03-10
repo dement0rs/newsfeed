@@ -22,6 +22,8 @@ class NewsViewModel {
         
     }
     
+    
+    var lastUpdate: Date?
     weak var delegate: NewsViewModelDelegate?
     var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-05", dateTo: "2021-03-05", sortCriteria: .popularity)
     
@@ -54,10 +56,14 @@ class NewsViewModel {
                         break
                     }
                 }
+                self.dataState = .available
+                self.lastUpdate = Date()
+                print("lastUpdate: \(String(describing: self.lastUpdate!.timeAgoDisplay()))")
             case .failure(let error) :
                 print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
+                self.dataState = self.modelsForNewsCell.isEmpty ? .empty : .available
             }
-            self.dataState = .available
+            
             self.delegate?.updateDataForShowingNews()
         }
     }
@@ -86,4 +92,39 @@ class NewsViewModel {
     
     
 }
+//extension Date {
+//    func timeAgoDisplay(date: Date) -> String {
+//        let formatter = RelativeDateTimeFormatter()
+//        formatter.unitsStyle = .full
+//        return formatter.localizedString(for: self, relativeTo: date)
+//    }
+//}
+//
 
+
+extension Date {
+    func timeAgoDisplay() -> String {
+
+        let calendar = Calendar.current
+        let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date())!
+        let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())!
+        let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
+
+        if minuteAgo < self {
+            let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
+            return "\(diff) sec ago"
+        } else if hourAgo < self {
+            let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
+            return "\(diff) min ago"
+        } else if dayAgo < self {
+            let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
+            return "\(diff) hrs ago"
+        } else if weekAgo < self {
+            let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
+            return "\(diff) days ago"
+        }
+        let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
+        return "\(diff) weeks ago"
+    }
+}

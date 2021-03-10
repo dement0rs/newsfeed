@@ -80,12 +80,14 @@ extension Reachability {
     }
 
     var isConnectedToNetwork: Bool {
+       // return false
         return isReachable &&
                !isConnectionRequiredAndTransientConnection &&
                !(isRunningOnDevice && isWWAN && !isReachableOnWWAN)
     }
 
     var isReachableViaWiFi: Bool {
+    //    return false
         return isReachable && isRunningOnDevice && !isWWAN
     }
 

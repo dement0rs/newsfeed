@@ -52,17 +52,6 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
-    func checkInternet() {
-        if Network.reachability.isReachable == true {
-            print("true")
-            newsViewModel.isInternetOn = true
-        } else {
-            print("false")
-            newsViewModel.isInternetOn = false
-        }
-        newsViewModel.behaviorOfScreenIf(networkStatus: newsViewModel.isInternetOn)
-    }
-    
     @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)
         newsViewModel.showNewsByEverythingRequest()
@@ -89,6 +78,21 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
+    
+    func checkInternet() {
+        if Network.reachability.isReachable == true {
+            print("true")
+            networkStatusLabel.backgroundColor = .red
+            newsViewModel.isInternetOn = true
+        } else {
+            print("false")
+            networkStatusLabel.backgroundColor = .black
+            newsViewModel.isInternetOn = false
+        }
+        newsViewModel.behaviorOfScreenIf(networkStatus: newsViewModel.isInternetOn)
+    }
+    
+    
     
     func reachabilityChanged() {
 //        switch Network.reachability.status {

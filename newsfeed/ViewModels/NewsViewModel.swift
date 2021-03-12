@@ -40,6 +40,23 @@ class NewsViewModel {
         self.dataState = .empty
     }
     
+    var isInternetOn = true
+    
+    func behaviorOfScreenIf(networkStatus: Bool ) {
+        if networkStatus == false {
+           // dataState = .loading
+            // show last available news
+            print("show last available news")
+        }
+        else {
+            //show newest news
+            print("show newest news")
+            showNewsByEverythingRequest()
+            
+        }
+    }
+    
+    
     func showNewsByEverythingRequest() {
         
         self.dataState = .loading
@@ -50,15 +67,18 @@ class NewsViewModel {
                 var indexOfAppendingArticle: Int = 0
                 for article in result.articles {
                     let modelForNewsCell = ModelForNewsCell(article: article)
+               //     print(article[1].pu)
                     self.modelsForNewsCell.append(modelForNewsCell)
                     indexOfAppendingArticle += 1
                     if indexOfAppendingArticle > self.everything.pageSize - 1 {
                         break
                     }
                 }
-                self.dataState = .available
                 self.lastUpdate = Date()
-                print("lastUpdate: \(String(describing: self.lastUpdate!.timeAgoDisplay()))")
+                print("lastUpdate: \(String(describing: self.lastUpdate?.timeAgoDisplay()))")
+                self.dataState = .available
+                
+               
             case .failure(let error) :
                 print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
                 self.dataState = self.modelsForNewsCell.isEmpty ? .empty : .available
@@ -90,16 +110,13 @@ class NewsViewModel {
         
     }
     
-    
+    // мне нужно ооздать метод, который менял бы состояние экрана в зависимоти от значения
+    // есть два состояния: есть интернет, нет интернета
+    // когда есть интернет, я могу иметь статус пустоты, когда нет данных, статус загрузки, статус отображения новых  данных
+    // когда нет интернета, я могу иметь статус отображения старых данных
+    //
 }
-//extension Date {
-//    func timeAgoDisplay(date: Date) -> String {
-//        let formatter = RelativeDateTimeFormatter()
-//        formatter.unitsStyle = .full
-//        return formatter.localizedString(for: self, relativeTo: date)
-//    }
-//}
-//
+
 
 
 extension Date {

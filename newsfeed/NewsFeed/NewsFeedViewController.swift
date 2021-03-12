@@ -33,6 +33,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkInternet()
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
@@ -40,7 +41,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
         stateChanged(state: newsViewModel.dataState)
-        self.newsViewModel.showNewsByEverythingRequest()
+     //   self.newsViewModel.showNewsByEverythingRequest()
         
         NotificationCenter.default
             .addObserver(self,
@@ -51,6 +52,16 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
+    func checkInternet() {
+        if Network.reachability.isReachable == true {
+            print("true")
+            newsViewModel.isInternetOn = true
+        } else {
+            print("false")
+            newsViewModel.isInternetOn = false
+        }
+        newsViewModel.behaviorOfScreenIf(networkStatus: newsViewModel.isInternetOn)
+    }
     
     @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)
@@ -75,26 +86,34 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
 }
 
+
+
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
     func reachabilityChanged() {
-        switch Network.reachability.status {
-        case .unreachable:
-            networkStatusLabel.backgroundColor = .red
-            
-        case .wwan, .wifi:
-            networkStatusLabel.backgroundColor = .green
-        }
+//        switch Network.reachability.status {
+//        case .unreachable:
+//            networkStatusLabel.backgroundColor = .yellow
+//
+//
+//        case .wwan, .wifi:
+//            networkStatusLabel.backgroundColor = .green
+//        }
         print("Reachability Summary")
         print("Status:", Network.reachability.status)
         print("HostName:", Network.reachability.hostname ?? "nil")
+        //
         print("Reachable:", Network.reachability.isReachable)
         print("Wifi:", Network.reachability.isReachableViaWiFi)
+//        if Network.reachability.isReachable == false {
+//            stateChanged(state: .empty)
+//        }
     }
     
     @objc func statusManager(_ notification: Notification) {
         reachabilityChanged()
     }
+    
     
     func stateChanged(state: NewsViewModel.DataAvailabilityState) {
         switch state {
@@ -123,7 +142,8 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
             reconnectButton.isHidden = true
             self.view.backgroundColor = .blue
             collectionViewOfNews.backgroundColor = .blue
-            lastUpdateLAbel.text = "Last update: \(String(describing: newsViewModel.lastUpdate?.timeAgoDisplay()))"
+            lastUpdateLAbel.text = "Last update: \(String(describing: newsViewModel.lastUpdate?.timeAgoDisplay() ?? "some time ago"))"
+            
         }
         
     }

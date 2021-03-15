@@ -11,6 +11,7 @@ import CoreGraphics
 protocol NewsViewModelDelegate: class {
     func updateDataForShowingNews()
     func stateChanged(state: NewsViewModel.DataAvailabilityState )
+    func setNetworkStatus(status: Bool)
 }
 
 class NewsViewModel {
@@ -25,10 +26,12 @@ class NewsViewModel {
     
     var lastUpdate: Date?
     weak var delegate: NewsViewModelDelegate?
-    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-05", dateTo: "2021-03-05", sortCriteria: .popularity)
+    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-14", dateTo: "2021-03-14", sortCriteria: .popularity)
     
     var modelsForNewsCell = [ModelForNewsCell]()
     let googleNewsAPI: GoogleNewsAPI
+    
+    
     var dataState : DataAvailabilityState {
         didSet {
             delegate?.stateChanged(state: dataState)
@@ -38,25 +41,47 @@ class NewsViewModel {
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
         self.dataState = .empty
-    }
-    
-    var isInternetOn = true
-    
-    func behaviorOfScreenIf(networkStatus: Bool ) {
-        if networkStatus == false {
-           // dataState = .loading
-            // show last available news
-            print("show last available news")
-        }
-        else {
-            //show newest news
-            print("show newest news")
-            showNewsByEverythingRequest()
+       
             
+//            NotificationCenter.default
+//                .addObserver(self,
+//                             selector: #selector(self.statusManager),
+//                             name: .flagsChanged,
+//                             object: nil)
+//
+        NotificationCenter.default.addObserver(self, selector: #selector(stateFuncTest), name: NSNotification.Name("stateFuncTest"), object: nil)
+       
+    }
+    @objc func stateFuncTest() {
+        delegate?.stateChanged(state: dataState)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+  
+    var isInternetOn = Network.reachability.isReachable {
+        didSet {
+            //rensame
+            delegate?.setNetworkStatus(status: isInternetOn)
         }
     }
     
+    @objc func statusManager(_ notification: Notification) {
+        isInternetOn = Network.reachability.isReachable
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.isInternetOn = false
+        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//            self.isInternetOn = true
+//        })
+            
+    }
     
+   
+     
     func showNewsByEverythingRequest() {
         
         self.dataState = .loading
@@ -67,7 +92,6 @@ class NewsViewModel {
                 var indexOfAppendingArticle: Int = 0
                 for article in result.articles {
                     let modelForNewsCell = ModelForNewsCell(article: article)
-               //     print(article[1].pu)
                     self.modelsForNewsCell.append(modelForNewsCell)
                     indexOfAppendingArticle += 1
                     if indexOfAppendingArticle > self.everything.pageSize - 1 {
@@ -83,8 +107,8 @@ class NewsViewModel {
                 print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
                 self.dataState = self.modelsForNewsCell.isEmpty ? .empty : .available
             }
-            
-            self.delegate?.updateDataForShowingNews()
+            //notific center
+          //  self.delegate?.updateDataForShowingNews()
         }
     }
     
@@ -110,11 +134,6 @@ class NewsViewModel {
         
     }
     
-    // мне нужно ооздать метод, который менял бы состояние экрана в зависимоти от значения
-    // есть два состояния: есть интернет, нет интернета
-    // когда есть интернет, я могу иметь статус пустоты, когда нет данных, статус загрузки, статус отображения новых  данных
-    // когда нет интернета, я могу иметь статус отображения старых данных
-    //
 }
 
 

@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
-    
+   
     
   
     @IBOutlet weak var lastUpdateLAbel: UILabel!
@@ -24,6 +24,9 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     init(viewModel: NewsViewModel) {
         self.newsViewModel = viewModel
         super.init(nibName: "NewsFeedViewController", bundle: nil)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: NSNotification.Name("stateFuncTest"), object: nil)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +36,10 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkInternet()
+       
+        print("Status:", Network.reachability.isReachable)
+     
+        newsViewModel.isInternetOn = Network.reachability.isReachable
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
@@ -41,15 +47,9 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         let  nib = UINib(nibName: CollectionViewCell.reuseIdentifier, bundle: nil)
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
         stateChanged(state: newsViewModel.dataState)
-     //   self.newsViewModel.showNewsByEverythingRequest()
+        self.newsViewModel.showNewsByEverythingRequest()
         
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(statusManager),
-                         name: .flagsChanged,
-                         object: nil)
-        reachabilityChanged()
-        
+       
     }
     
     @IBAction func reconnectClicked(_ sender: UIButton) {
@@ -79,47 +79,19 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
-    func checkInternet() {
-        if Network.reachability.isReachable == true {
-            print("true")
-            networkStatusLabel.backgroundColor = .red
-            newsViewModel.isInternetOn = true
-        } else {
-            print("false")
+    func setNetworkStatus(status: Bool) {
+        if status == true {
             networkStatusLabel.backgroundColor = .black
-            newsViewModel.isInternetOn = false
+            print("black")
+        } else {
+            networkStatusLabel.backgroundColor = .red
+            print("red")
         }
-        newsViewModel.behaviorOfScreenIf(networkStatus: newsViewModel.isInternetOn)
     }
-    
-    
-    
-    func reachabilityChanged() {
-//        switch Network.reachability.status {
-//        case .unreachable:
-//            networkStatusLabel.backgroundColor = .yellow
-//
-//
-//        case .wwan, .wifi:
-//            networkStatusLabel.backgroundColor = .green
-//        }
-        print("Reachability Summary")
-        print("Status:", Network.reachability.status)
-        print("HostName:", Network.reachability.hostname ?? "nil")
-        //
-        print("Reachable:", Network.reachability.isReachable)
-        print("Wifi:", Network.reachability.isReachableViaWiFi)
-//        if Network.reachability.isReachable == false {
-//            stateChanged(state: .empty)
-//        }
-    }
-    
-    @objc func statusManager(_ notification: Notification) {
-        reachabilityChanged()
-    }
-    
+
     
     func stateChanged(state: NewsViewModel.DataAvailabilityState) {
+    
         switch state {
         
         case .empty:

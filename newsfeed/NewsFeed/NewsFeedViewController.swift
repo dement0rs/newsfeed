@@ -8,9 +8,7 @@
 import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
-   
     
-  
     @IBOutlet weak var lastUpdateLAbel: UILabel!
     @IBOutlet weak var networkStatusLabel: UILabel!
     @IBOutlet weak var reconnectButton: UIButton!
@@ -24,9 +22,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     init(viewModel: NewsViewModel) {
         self.newsViewModel = viewModel
         super.init(nibName: "NewsFeedViewController", bundle: nil)
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: NSNotification.Name("stateFuncTest"), object: nil)
-        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -36,10 +32,6 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        print("Status:", Network.reachability.isReachable)
-     
-        newsViewModel.isInternetOn = Network.reachability.isReachable
         collectionViewOfNews.delegate = self
         collectionViewOfNews.dataSource = self
         newsViewModel.delegate = self
@@ -49,7 +41,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
         
-       
+        
     }
     
     @IBAction func reconnectClicked(_ sender: UIButton) {
@@ -82,16 +74,14 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     func setNetworkStatus(status: Bool) {
         if status == true {
             networkStatusLabel.backgroundColor = .black
-            print("black")
         } else {
             networkStatusLabel.backgroundColor = .red
-            print("red")
         }
     }
-
+    
     
     func stateChanged(state: NewsViewModel.DataAvailabilityState) {
-    
+        collectionViewOfNews.reloadData()
         switch state {
         
         case .empty:

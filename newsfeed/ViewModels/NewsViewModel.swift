@@ -26,7 +26,7 @@ class NewsViewModel {
     
     var lastUpdate: Date?
     weak var delegate: NewsViewModelDelegate?
-    var everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-03-14", dateTo: "2021-03-14", sortCriteria: .popularity)
+    var everything = GoogleNewsEverythingRequest(topic: "Grammy", dateFrom: "2021-03-16", dateTo: "2021-03-16", sortCriteria: .popularity)
     
     var modelsForNewsCell = [ModelForNewsCell]()
     let googleNewsAPI: GoogleNewsAPI
@@ -41,47 +41,36 @@ class NewsViewModel {
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
         self.dataState = .empty
-       
-            
-//            NotificationCenter.default
-//                .addObserver(self,
-//                             selector: #selector(self.statusManager),
-//                             name: .flagsChanged,
-//                             object: nil)
-//
-        NotificationCenter.default.addObserver(self, selector: #selector(stateFuncTest), name: NSNotification.Name("stateFuncTest"), object: nil)
-       
-    }
-    @objc func stateFuncTest() {
-        delegate?.stateChanged(state: dataState)
+        
+        NotificationCenter.default
+            .addObserver(self,
+                         selector: #selector(self.statusManager),
+                         name: .flagsChanged,
+                         object: nil)
+        
+        statusManager(Notification(name: .NSCalendarDayChanged))
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-  
     var isInternetOn = Network.reachability.isReachable {
         didSet {
-            //rensame
             delegate?.setNetworkStatus(status: isInternetOn)
         }
     }
     
     @objc func statusManager(_ notification: Notification) {
         isInternetOn = Network.reachability.isReachable
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
             self.isInternetOn = false
         })
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//            self.isInternetOn = true
-//        })
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.isInternetOn = true
+        })
     }
     
-   
-     
     func showNewsByEverythingRequest() {
         
         self.dataState = .loading
@@ -102,13 +91,12 @@ class NewsViewModel {
                 print("lastUpdate: \(String(describing: self.lastUpdate?.timeAgoDisplay()))")
                 self.dataState = .available
                 
-               
+                
             case .failure(let error) :
                 print("NewsViewModel -> showNewsByEverythingRequest -> can`t get successful result frrom response. Error \(error.code): \(error.message)")
                 self.dataState = self.modelsForNewsCell.isEmpty ? .empty : .available
             }
-            //notific center
-          //  self.delegate?.updateDataForShowingNews()
+            self.delegate?.updateDataForShowingNews()
         }
     }
     
@@ -136,17 +124,15 @@ class NewsViewModel {
     
 }
 
-
-
 extension Date {
     func timeAgoDisplay() -> String {
-
+        
         let calendar = Calendar.current
         let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
         let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date())!
         let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())!
         let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())!
-
+        
         if minuteAgo < self {
             let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
             return "\(diff) sec ago"
@@ -163,4 +149,6 @@ extension Date {
         let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
         return "\(diff) weeks ago"
     }
+    
 }
+

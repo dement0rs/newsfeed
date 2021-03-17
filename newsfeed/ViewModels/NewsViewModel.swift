@@ -81,6 +81,7 @@ class NewsViewModel {
                 var indexOfAppendingArticle: Int = 0
                 for article in result.articles {
                     let modelForNewsCell = ModelForNewsCell(article: article)
+                    print(article.publishedAt)
                     self.modelsForNewsCell.append(modelForNewsCell)
                     indexOfAppendingArticle += 1
                     if indexOfAppendingArticle > self.everything.pageSize - 1 {

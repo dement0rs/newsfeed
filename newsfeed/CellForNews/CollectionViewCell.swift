@@ -27,7 +27,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     
     func fill(news: ModelForNewsCell) {
-        dateLabel.text = news.date
+        dateLabel.text = news.stringDateForShowingTimeAgo
         autorLabel.text = news.autor
         nameOfArticleLabel.text = news.title
         textOfNewsLabel.text = news.content

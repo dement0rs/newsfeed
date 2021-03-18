@@ -9,22 +9,25 @@ import Foundation
 
 class ModelForNewsCell {
 
-    let date: String
     let autor: String
     let title: String
     let content: String
     let source: String
     let imageURL: String
     var dataForImage : Data? 
-    
+    var date = Date()
+    var stringDateForShowingTimeAgo = String()
     
     init(article: Article) {
-        self.date = article.publishedAt
         self.autor = article.author ?? "Some autor"
         self.title = article.title
         self.content = article.content ?? "Some text"
         self.source = article.source.name
         self.imageURL = article.urlToImage ?? "Some string"
+        
+        date = convertDateStringToDate(inputDate: article.publishedAt)
+        stringDateForShowingTimeAgo = date.timeAgoDisplay()
+        
         createDataForImage(stringForImage: imageURL)
     }
     
@@ -38,6 +41,14 @@ class ModelForNewsCell {
             print("ModelForNewsCell -> createDataForImage -> can`t get data from url:  \(error.localizedDescription)")
         }
         
+    }
+    func convertDateStringToDate(inputDate: String ) -> Date {
+        let isoDate = inputDate
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let outputDate = dateFormatter.date(from:isoDate)!
+        return outputDate
     }
     
 }

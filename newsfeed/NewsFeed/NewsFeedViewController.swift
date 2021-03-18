@@ -9,7 +9,8 @@ import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
-    
+    @IBOutlet weak var lastUpdateLAbel: UILabel!
+    @IBOutlet weak var networkStatusLabel: UILabel!
     @IBOutlet weak var reconnectButton: UIButton!
     @IBOutlet weak var connectionStatusLabel: UILabel!
     @IBOutlet weak var indicatorrOfDownloading: UIActivityIndicatorView!
@@ -21,6 +22,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     init(viewModel: NewsViewModel) {
         self.newsViewModel = viewModel
         super.init(nibName: "NewsFeedViewController", bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -38,9 +40,9 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionViewOfNews.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
         stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
+       
         
     }
-    
     
     @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)
@@ -67,51 +69,72 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
-    func stateChanged(state: NewsViewModel.DataAvailabilityState) {
-        switch state {
-        
-        case .empty:
-            self.connectionStatusLabel.text = "Can`t get data from server, try again"
-            self.indicatorrOfDownloading.isHidden = true
-            collectionViewOfNews.isHidden = true
-            reconnectButton.isHidden = false
-            view.backgroundColor = .red
-            
-        case .loading:
-            self.connectionStatusLabel.text = "Loading..."
-            self.indicatorrOfDownloading.isHidden = false
-            self.indicatorrOfDownloading.startAnimating()
-            self.collectionViewOfNews.isHidden = true
-            reconnectButton.isHidden = true
-            self.view.backgroundColor = .green
-            
-        case .available:
-            self.indicatorrOfDownloading.isHidden = true
-            self.indicatorrOfDownloading.stopAnimating()
-            self.connectionStatusLabel.isHidden = true
-            self.collectionViewOfNews.isHidden = false
-            reconnectButton.isHidden = true
-            self.view.backgroundColor = .blue
-            collectionViewOfNews.backgroundColor = .blue
-        }
-        
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        
         let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
         layout.itemSize =  itemSizeForEachCell
         return  layout.itemSize
-        
     }
+}
+
+extension NewsFeedViewController {
     
     func updateDataForShowingNews() {
         collectionViewOfNews.reloadData()
     }
     
+    func networkStatusDidChanged(status: Bool) {
+        if status == true {
+            networkStatusLabel.backgroundColor = .black
+        } else {
+            networkStatusLabel.backgroundColor = .red
+        }
+    }
+    
+    func setTitleForNews(newsTitle: String) {
+        title = newsTitle
+    }
+    
+    func stateChanged(state: NewsViewModel.DataAvailabilityState) {
+        collectionViewOfNews.reloadData()
+        switch state {
+        
+        case .empty:
+            connectionStatusLabel.text = "Can`t get data from server, try again"
+            indicatorrOfDownloading.isHidden = true
+            collectionViewOfNews.isHidden = true
+            reconnectButton.isHidden = false
+            view.backgroundColor = .emptyColor
+            
+        case .loading:
+            connectionStatusLabel.text = "Loading..."
+            indicatorrOfDownloading.isHidden = false
+            indicatorrOfDownloading.startAnimating()
+            collectionViewOfNews.isHidden = true
+            reconnectButton.isHidden = true
+            view.backgroundColor = .loadingColor
+            
+        case .available:
+            
+            indicatorrOfDownloading.isHidden = true
+            indicatorrOfDownloading.stopAnimating()
+            connectionStatusLabel.isHidden = true
+            collectionViewOfNews.isHidden = false
+            reconnectButton.isHidden = true
+            view.backgroundColor = .availableColor
+            collectionViewOfNews.backgroundColor = .availableColor
+            lastUpdateLAbel.text = newsViewModel.lastUpdate
+        }
+    }
+}
+
+extension UIColor {
+    static  let availableColor = UIColor(red: 105.0/255.0, green: 130.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+    static  let loadingColor = UIColor(red: 125.0/255.0, green: 190.0/255.0, blue: 110.0/255.0, alpha: 1.0)
+    static  let emptyColor = UIColor(red: 195.0/255.0, green: 130.0/255.0, blue: 110.0/255.0, alpha: 1.0)
+
 }
 

@@ -11,7 +11,7 @@ import CoreGraphics
 protocol NewsViewModelDelegate: class {
     func updateDataForShowingNews()
     func stateChanged(state: NewsViewModel.DataAvailabilityState)
-    func setNetworkStatus(status: Bool)
+    func networkStatusDidChanged(status: Bool)
     func setTitleForNews(newsTitle: String)
 }
 
@@ -31,7 +31,7 @@ class NewsViewModel {
     let googleNewsAPI: GoogleNewsAPI
     var lastUpdate = String()
     weak var delegate: NewsViewModelDelegate?
-   
+    
     var dataState : DataAvailabilityState {
         didSet {
             delegate?.stateChanged(state: dataState)
@@ -40,7 +40,7 @@ class NewsViewModel {
     
     var isInternetOn = Network.reachability.isReachable {
         didSet {
-            delegate?.setNetworkStatus(status: isInternetOn)
+            delegate?.networkStatusDidChanged(status: isInternetOn)
         }
     }
     
@@ -52,7 +52,8 @@ class NewsViewModel {
                          selector: #selector(self.statusManager),
                          name: .flagsChanged,
                          object: nil)
-        
+        // Since we  can`t check this notification with reachability on simulators, we run selector
+        //  As input parameter we use random NSCalendarDayChanged because we don`t use it in our func
         statusManager(Notification(name: .NSCalendarDayChanged))
     }
     
@@ -63,6 +64,8 @@ class NewsViewModel {
     
     @objc func statusManager(_ notification: Notification) {
         isInternetOn = Network.reachability.isReachable
+        
+        //This two dispatch we use only for test to check whether the status has changed because Reachability file doesn`t work on simulator
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
             self.isInternetOn = false
         })
@@ -88,7 +91,7 @@ class NewsViewModel {
                     }
                 }
                 
-               
+                
                 self.lastUpdate = "Last update: \(String(describing: Date().timeAgoDisplay() ))"
                 self.titleForNews = self.everything.topic
                 self.delegate?.setTitleForNews(newsTitle: self.titleForNews)
@@ -111,6 +114,8 @@ class NewsViewModel {
         let itemsCountForHorisontalLayout: CGFloat = 3
         let fullWidthItemMask  = 7
         var ItemsInRRow = CGFloat( itemsCountForVerticalLayout)
+        let fullRowSpace : CGFloat = 15
+        
         
         if boxSize.width >  boxSize.height {
             ItemsInRRow = CGFloat( itemsCountForHorisontalLayout)
@@ -118,7 +123,7 @@ class NewsViewModel {
         let width = (boxSize.width - horisontalSpasing * (ItemsInRRow + 1)) / ItemsInRRow
         
         if (itemNumber + fullWidthItemMask) % fullWidthItemMask == 0 {
-            return  CGSize(width: fullWidth, height: minHeight)
+            return  CGSize(width: fullWidth - fullRowSpace, height: minHeight)
         }
         return  CGSize(width: width, height: minHeight)
         

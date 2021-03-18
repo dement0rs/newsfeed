@@ -9,7 +9,6 @@ import UIKit
 
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
-    
     @IBOutlet weak var lastUpdateLAbel: UILabel!
     @IBOutlet weak var networkStatusLabel: UILabel!
     @IBOutlet weak var reconnectButton: UIButton!
@@ -68,11 +67,26 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
 }
 
-
-
 extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
     
-    func setNetworkStatus(status: Bool) {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
+        layout.itemSize =  itemSizeForEachCell
+        return  layout.itemSize
+    }
+}
+
+extension NewsFeedViewController {
+    
+    func updateDataForShowingNews() {
+        collectionViewOfNews.reloadData()
+    }
+    
+    func networkStatusDidChanged(status: Bool) {
         if status == true {
             networkStatusLabel.backgroundColor = .black
         } else {
@@ -114,25 +128,7 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
             collectionViewOfNews.backgroundColor = .availableColor
             lastUpdateLAbel.text = newsViewModel.lastUpdate
         }
-        
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        
-        let itemSizeForEachCell = newsViewModel.calculateItemSize(for: indexPath.row, in: collectionViewOfNews.frame.size)
-        layout.itemSize =  itemSizeForEachCell
-        return  layout.itemSize
-        
-    }
-    
-    func updateDataForShowingNews() {
-        collectionViewOfNews.reloadData()
-    }
-    
 }
 
 extension UIColor {

@@ -11,7 +11,9 @@ class NewsFeedViewControllerCoordinator: Coordinator {
     
     private let presenter: UINavigationController
     private var newsFeedViewController: NewsFeedViewController?
-    let googleNewsAPI: GoogleNewsAPI
+    private var detailsViewControllerCoordinator: DetailsViewControllerCoordinator?
+    private let googleNewsAPI: GoogleNewsAPI
+    
     
     
     init(presenter: UINavigationController, googleNewsAPI: GoogleNewsAPI) {
@@ -26,6 +28,12 @@ class NewsFeedViewControllerCoordinator: Coordinator {
         let newsFeedViewController = NewsFeedViewController(viewModel: viewModel)
         presenter.pushViewController(newsFeedViewController, animated: true)
         self.newsFeedViewController = newsFeedViewController
+    }
+    
+    func toDetailsClicked() {
+        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI)
+        detailsViewControllerCoordinator.start()
+        self.detailsViewControllerCoordinator = detailsViewControllerCoordinator
     }
     
     

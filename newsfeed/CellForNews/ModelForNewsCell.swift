@@ -9,6 +9,7 @@ import Foundation
 
 class ModelForNewsCell {
 
+    let url: String
     let autor: String
     let title: String
     let content: String
@@ -19,6 +20,7 @@ class ModelForNewsCell {
     var stringDateForShowingTimeAgo = String()
     
     init(article: Article) {
+        self.url = article.url
         self.autor = article.author ?? "Some autor"
         self.title = article.title
         self.content = article.content ?? "Some text"

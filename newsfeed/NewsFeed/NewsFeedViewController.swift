@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol NewsFeedViewControllerDelegate: class {
+    func newsFeedViewControllerDidSelectNews(withUrl: String)
+}
+
 class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NewsViewModelDelegate {
     
     @IBOutlet weak var lastUpdateLAbel: UILabel!
@@ -18,6 +22,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     let newsViewModel: NewsViewModel
     let collectionViewCell = CollectionViewCell()
+    weak var delegate: NewsFeedViewControllerDelegate?
     
     init(viewModel: NewsViewModel) {
         self.newsViewModel = viewModel
@@ -41,9 +46,13 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
        
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(toFavoriteListClicked))
+        navigationItem.rightBarButtonItem?.tintColor = .availableColor
     }
     
+    @objc func toFavoriteListClicked() {
+        print("click")
+    }
     @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)
         newsViewModel.showNewsByEverythingRequest()
@@ -63,6 +72,12 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         let cellViewModel = newsViewModel.modelsForNewsCell[indexPath.row]
         cell.fill(news: cellViewModel)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let url = newsViewModel.modelsForNewsCell[indexPath.row].url
+        
+        delegate?.newsFeedViewControllerDidSelectNews(withUrl: url)
     }
     
 }

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class NewsFeedViewControllerCoordinator: Coordinator {
+class NewsFeedViewControllerCoordinator: Coordinator, NewsFeedViewControllerDelegate {
+    
+    
     
     private let presenter: UINavigationController
     private var newsFeedViewController: NewsFeedViewController?
@@ -26,12 +28,13 @@ class NewsFeedViewControllerCoordinator: Coordinator {
      
         let viewModel = NewsViewModel(googleNewsAPI: googleNewsAPI)
         let newsFeedViewController = NewsFeedViewController(viewModel: viewModel)
+        newsFeedViewController.delegate = self
         presenter.pushViewController(newsFeedViewController, animated: true)
         self.newsFeedViewController = newsFeedViewController
     }
     
-    func toDetailsClicked() {
-        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI)
+    func newsFeedViewControllerDidSelectNews(withUrl: String) {
+        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI, newsUrl: withUrl)
         detailsViewControllerCoordinator.start()
         self.detailsViewControllerCoordinator = detailsViewControllerCoordinator
     }

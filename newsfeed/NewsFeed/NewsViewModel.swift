@@ -24,7 +24,7 @@ class NewsViewModel {
         
     }
     
-    var everything = GoogleNewsEverythingRequest(topic: "Grammy", dateFrom: "2021-03-17", dateTo: "2021-03-17", sortCriteria: .popularity)
+    var everything = GoogleNewsEverythingRequest(topic: "Grammy", dateFrom: "2021-03-19", dateTo: "2021-03-19", sortCriteria: .popularity)
     
     var modelsForNewsCell = [ModelForNewsCell]()
     var titleForNews = String()

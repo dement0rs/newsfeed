@@ -6,24 +6,49 @@
 //
 
 import UIKit
+import WebKit
 
-class DetailsViewController: UIViewController {
+class DetailsViewController: UIViewController, WKUIDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    let detailsViewModel: DetailsViewModel
+  
+    init(viewModel: DetailsViewModel) {
+        self.detailsViewModel = viewModel
+        super.init(nibName: "DetailsViewController", bundle: nil)
+        
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    */
-
-}
+   
+    
+    var webView: WKWebView!
+        
+        override func loadView() {
+            let webConfiguration = WKWebViewConfiguration()
+            webView = WKWebView(frame: .zero, configuration: webConfiguration)
+            webView.uiDelegate = self
+            view = webView
+        }
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            let myURL = URL(string:detailsViewModel.newsUrl)
+            let myRequest = URLRequest(url: myURL!)
+            webView.load(myRequest)
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(toFavoriteListClicked))
+            navigationItem.rightBarButtonItem?.tintColor = .availableColor
+        }
+        
+        @objc func toFavoriteListClicked() {
+            // do come code for saving news
+            detailsViewModel.saveNews()
+            print("click")
+        }
+    
+    
+    
+        }
+    

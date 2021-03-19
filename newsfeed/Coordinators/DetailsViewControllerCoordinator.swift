@@ -11,17 +11,23 @@ class DetailsViewControllerCoordinator: Coordinator {
     
     private let presenter: UINavigationController
     private let googleNewsAPI: GoogleNewsAPI
-    private var detailsViewController: De
+    private var newsUrl: String
+    private var detailsViewController: DetailsViewController?
     
     
-    init(<#parameters#>) {
-        <#statements#>
+    init(presenter: UINavigationController, googleNewsAPI: GoogleNewsAPI, newsUrl: String) {
+        self.presenter = presenter
+        self.googleNewsAPI = googleNewsAPI
+        self.newsUrl = newsUrl
     }
     
     
     
     func start() {
-        <#code#>
+        let viewModel = DetailsViewModel(googleNewsAPI: googleNewsAPI, newsUrl: newsUrl)
+        let detailsViewController = DetailsViewController(viewModel: viewModel)
+        presenter.pushViewController(detailsViewController, animated: true)
+        self.detailsViewController = detailsViewController
     }
     
     

@@ -33,6 +33,7 @@
 		CA280F0226038F0900A4CB35 /* DetailsViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA280F0126038F0900A4CB35 /* DetailsViewControllerCoordinator.swift */; };
 		CA280F162603911700A4CB35 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA280F142603911700A4CB35 /* DetailsViewController.swift */; };
 		CA280F172603911700A4CB35 /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA280F152603911700A4CB35 /* DetailsViewController.xib */; };
+		CA280F202603940E00A4CB35 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA280F1F2603940E00A4CB35 /* DetailsViewModel.swift */; };
 		CA4C3A0F25F6538700416368 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4C3A0E25F6538700416368 /* Reachability.swift */; };
 		CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */; };
 		CA5BEADA25DD8B9300AAAB64 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */; };
@@ -92,6 +93,7 @@
 		CA280F0126038F0900A4CB35 /* DetailsViewControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewControllerCoordinator.swift; sourceTree = "<group>"; };
 		CA280F142603911700A4CB35 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		CA280F152603911700A4CB35 /* DetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailsViewController.xib; sourceTree = "<group>"; };
+		CA280F1F2603940E00A4CB35 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		CA4C3A0E25F6538700416368 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
@@ -161,7 +163,6 @@
 				CA5BEADE25DD8D7B00AAAB64 /* CellForNews */,
 				CA1A665625DBF863009ACF86 /* NewsFeed */,
 				CA4C3A0D25F6536300416368 /* Reachability */,
-				CA1A664F25DBF859009ACF86 /* ViewModels */,
 				CA1A65C225D15A8D009ACF86 /* NetworkFiles */,
 				CA1A65B625D15995009ACF86 /* Models */,
 				22887ED125D121ED002CFF65 /* Assets.xcassets */,
@@ -221,18 +222,10 @@
 			path = NetworkFiles;
 			sourceTree = "<group>";
 		};
-		CA1A664F25DBF859009ACF86 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				CA1A664425DAC6FC009ACF86 /* NewsViewModel.swift */,
-				CA8A94CD25E3966300C0F3D0 /* ModelForNewsCell.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		CA1A665625DBF863009ACF86 /* NewsFeed */ = {
 			isa = PBXGroup;
 			children = (
+				CA1A664425DAC6FC009ACF86 /* NewsViewModel.swift */,
 				CA1A666A25DD4784009ACF86 /* NewsFeedViewController.swift */,
 				CA1A666B25DD4784009ACF86 /* NewsFeedViewController.xib */,
 			);
@@ -253,6 +246,7 @@
 		CA280F1B2603912400A4CB35 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				CA280F1F2603940E00A4CB35 /* DetailsViewModel.swift */,
 				CA280F142603911700A4CB35 /* DetailsViewController.swift */,
 				CA280F152603911700A4CB35 /* DetailsViewController.xib */,
 			);
@@ -270,6 +264,7 @@
 		CA5BEADE25DD8D7B00AAAB64 /* CellForNews */ = {
 			isa = PBXGroup;
 			children = (
+				CA8A94CD25E3966300C0F3D0 /* ModelForNewsCell.swift */,
 				CA5BEAD725DD8B9300AAAB64 /* CollectionViewCell.swift */,
 				CA5BEAD825DD8B9300AAAB64 /* CollectionViewCell.xib */,
 			);
@@ -522,6 +517,7 @@
 				CA1A666C25DD4784009ACF86 /* NewsFeedViewController.swift in Sources */,
 				22887EC925D121EC002CFF65 /* AppDelegate.swift in Sources */,
 				CA1A664525DAC6FC009ACF86 /* NewsViewModel.swift in Sources */,
+				CA280F202603940E00A4CB35 /* DetailsViewModel.swift in Sources */,
 				CA1A663425D6C98E009ACF86 /* Protocols.swift in Sources */,
 				CA5BEAD925DD8B9300AAAB64 /* CollectionViewCell.swift in Sources */,
 				CA8A94CE25E3966300C0F3D0 /* ModelForNewsCell.swift in Sources */,

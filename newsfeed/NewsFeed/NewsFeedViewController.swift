@@ -50,9 +50,6 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         navigationItem.rightBarButtonItem?.tintColor = .availableColor
     }
     
-    @objc func toFavoriteListClicked() {
-        print("click")
-    }
     @IBAction func reconnectClicked(_ sender: UIButton) {
         stateChanged(state: newsViewModel.dataState)
         newsViewModel.showNewsByEverythingRequest()
@@ -96,6 +93,10 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension NewsFeedViewController {
+    
+    @objc func toFavoriteListClicked() {
+        print("click")
+    }
     
     func updateDataForShowingNews() {
         collectionViewOfNews.reloadData()

@@ -6,42 +6,36 @@
 //
 //
 
-// мне нужно создать проотокол, который будет выполнять функцию сохранения данных (новости)
 
-// создать класс, который будет реализовывать этот протокол
-//временно там прописать юзер дефолтс, а потом заменить на файловую систему
-//
-//
-//
-
-
-// file manager
-// article codable
 import Foundation
 
+protocol FileManagerWritingAndReadingArticle {
+   func writeArticle(article: String)
+    func readArticle()
+   
+}
+
 class DetailsViewModel {
-    var googleNewsAPI: GoogleNewsAPI
+    let googleNewsAPI: GoogleNewsAPI
+    
     var newsUrl: String
     
-    
-    var newsSaver: SavingNews
+    let newsSaver =  NewsSaver()
     
     init(googleNewsAPI: GoogleNewsAPI, newsUrl: String) {
         self.googleNewsAPI = googleNewsAPI
         self.newsUrl = newsUrl
-    }
-    
-    func printNewsUrl(){
         print(newsUrl)
     }
     
-    func saveNews(){
-        newsSaver.saveNewsToTheList
+    
+    func myRequestForShowingNews() -> URLRequest {
+        let myURL = URL(string:newsUrl)
+        let myRequest = URLRequest(url: myURL!)
+        return myRequest
     }
     
 }
 
 
-protocol SavingNews {
-    func saveNewsToTheList()
-}
+

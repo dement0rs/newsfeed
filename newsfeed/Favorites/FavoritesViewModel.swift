@@ -18,7 +18,7 @@ class FavoritesViewModel {
     
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
-        self.models = newsSaver.testShow()
+        self.models = newsSaver.decodeAndShow()
        
     }
     

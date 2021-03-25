@@ -39,9 +39,12 @@ class DetailsViewModel {
     }
     
     func saveNews() {
-        newsSaver.testSave(news: news)
+        newsSaver.testEncodeAndSave(news: news)
+      //newsSaver.testSave(news: news)
         
     }
+    
+    
 }
 
 

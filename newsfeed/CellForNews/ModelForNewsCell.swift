@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ModelForNewsCell {
+class ModelForNewsCell: Codable {
 
     let url: String
     let autor: String
@@ -49,7 +49,10 @@ class ModelForNewsCell {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let outputDate = dateFormatter.date(from:isoDate)!
+        guard let outputDate = dateFormatter.date(from:isoDate) else {
+            return Date()
+            
+        }
         return outputDate
     }
     

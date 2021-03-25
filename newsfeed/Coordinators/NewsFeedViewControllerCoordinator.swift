@@ -8,12 +8,12 @@
 import UIKit
 
 class NewsFeedViewControllerCoordinator: Coordinator, NewsFeedViewControllerDelegate {
-    
-    
+ 
     
     private let presenter: UINavigationController
     private var newsFeedViewController: NewsFeedViewController?
     private var detailsViewControllerCoordinator: DetailsViewControllerCoordinator?
+    private var favoritesViewControllerCoordinator: FavoritesViewControllerCoordinator?
     private let googleNewsAPI: GoogleNewsAPI
     
     
@@ -33,11 +33,18 @@ class NewsFeedViewControllerCoordinator: Coordinator, NewsFeedViewControllerDele
         self.newsFeedViewController = newsFeedViewController
     }
     
-    func newsFeedViewControllerDidSelectNews(withUrl: String) {
-        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI, newsUrl: withUrl)
+    func newsFeedViewControllerDidSelectNews(withUrl: String, withNews: ModelForNewsCell) {
+        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI, newsUrl: withUrl, news: withNews)
         detailsViewControllerCoordinator.start()
         self.detailsViewControllerCoordinator = detailsViewControllerCoordinator
     }
+    
+    func newsFeedViewControllerDidSelectFavorites() {
+        let favoritesViewControllerCoordinator = FavoritesViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI)
+        favoritesViewControllerCoordinator.start()
+        self.favoritesViewControllerCoordinator = favoritesViewControllerCoordinator
+    }
+    
     
     
     

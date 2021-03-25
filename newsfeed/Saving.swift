@@ -15,8 +15,93 @@ import Foundation
 
 
 // хранить иннфу я буду в виде Article
+// convert Article in Data
+// save data
+// read data
+
+protocol ObjectSavable {
+    func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable
+    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable
+}
+
+enum ObjectSavableError: String, LocalizedError {
+    case unableToEncode = "Unable to encode object into data"
+    case noValue = "No data object found for the given key"
+    case unableToDecode = "Unable to decode object into given type"
+    
+    var errorDescription: String? {
+        rawValue
+    }
+}
+
+extension UserDefaults: ObjectSavable {
+    func setObject<Object>(_ object: Object, forKey: String) throws where Object: Encodable {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(object)
+            set(data, forKey: forKey)
+        } catch {
+            throw ObjectSavableError.unableToEncode
+        }
+    }
+    
+    func getObject<Object>(forKey: String, castTo type: Object.Type) throws -> Object where Object: Decodable {
+        guard let data = data(forKey: forKey) else { throw ObjectSavableError.noValue }
+        let decoder = JSONDecoder()
+        do {
+            let object = try decoder.decode(type, from: data)
+            return object
+        } catch {
+            throw ObjectSavableError.unableToDecode
+        }
+    }
+}
 
 class NewsSaver: FileManagerWritingAndReadingArticle {
+
+    let userDefaults = UserDefaults.standard
+    
+    
+    // convert to data
+    //save to user def
+    //var newsForSaving : ModelForNewsCell
+    var someKey = String()
+    
+    var newsArray = [ModelForNewsCell]()
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        print(UserDefaults.standard.object(forKey: key) != nil)
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    func testSave(news: ModelForNewsCell) {
+        newsArray.append(news)
+    
+            do {
+                try userDefaults.setObject(newsArray, forKey: "FavoriteNews")
+               
+                print("set")
+            } catch {
+                print(error.localizedDescription)
+            }
+    
+        
+    }
+    
+    func testShow() -> [ModelForNewsCell] {
+        
+        do {
+            let favoriteNews = try userDefaults.getObject(forKey: "FavoriteNews", castTo: [ModelForNewsCell].self)
+            print("get")
+            print(favoriteNews.count)
+            newsArray = favoriteNews
+        } catch {
+            print(error.localizedDescription)
+
+        }
+        return newsArray
+    }
+    
+    
     
     let favoriteArticle = "favoriteArticle.txt"
     
@@ -30,6 +115,7 @@ class NewsSaver: FileManagerWritingAndReadingArticle {
         let pathComponent = documentDirectory().appendingPathComponent(favoriteArticle)
         return pathComponent
     }
+    
     
     func writeArticle(article: String) {
         do {

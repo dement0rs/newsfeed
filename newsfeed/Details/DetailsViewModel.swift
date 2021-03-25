@@ -19,13 +19,16 @@ class DetailsViewModel {
     let googleNewsAPI: GoogleNewsAPI
     
     var newsUrl: String
+    var news: ModelForNewsCell
     
     let newsSaver =  NewsSaver()
     
-    init(googleNewsAPI: GoogleNewsAPI, newsUrl: String) {
+    init(googleNewsAPI: GoogleNewsAPI, newsUrl: String, news: ModelForNewsCell) {
         self.googleNewsAPI = googleNewsAPI
-        self.newsUrl = newsUrl
+        self.newsUrl = news.url
+        self.news = news
         print(newsUrl)
+        print(news.autor)
     }
     
     
@@ -35,6 +38,10 @@ class DetailsViewModel {
         return myRequest
     }
     
+    func saveNews() {
+        newsSaver.testSave(news: news)
+        
+    }
 }
 
 

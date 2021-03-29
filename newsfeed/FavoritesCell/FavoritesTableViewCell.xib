@@ -17,16 +17,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8u6-ZH-k26">
-                        <rect key="frame" x="16" y="19" width="269" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8u6-ZH-k26">
+                        <rect key="frame" x="15" y="10" width="305" height="39"/>
+                        <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <constraints>
+                <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="8u6-ZH-k26" secondAttribute="trailing" id="Bil-hy-8RD"/>
+                <constraint firstItem="njF-e1-oar" firstAttribute="bottom" secondItem="8u6-ZH-k26" secondAttribute="bottom" constant="10" id="VhX-S9-ysd"/>
+                <constraint firstItem="8u6-ZH-k26" firstAttribute="top" secondItem="njF-e1-oar" secondAttribute="top" constant="10" id="avt-0i-xwR"/>
+                <constraint firstItem="8u6-ZH-k26" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="15" id="oYv-YK-dQy"/>
+            </constraints>
             <connections>
                 <outlet property="titleLabel" destination="8u6-ZH-k26" id="1St-e1-8Td"/>
             </connections>

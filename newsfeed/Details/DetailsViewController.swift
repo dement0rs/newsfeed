@@ -38,14 +38,14 @@ class DetailsViewController: UIViewController, WKUIDelegate {
         
         webView.load(detailsViewModel.myRequestForShowingNews())
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(saveNewsClicked))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(saveArticleClicked))
         navigationItem.rightBarButtonItem?.tintColor = .availableColor
     }
     
-    @objc func saveNewsClicked() {
+    @objc func saveArticleClicked() {
         
-        detailsViewModel.saveNews()
-        print("click")
+        detailsViewModel.saveArticle()
+        
     }
     
     

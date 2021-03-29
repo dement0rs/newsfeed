@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NewsFeedViewControllerDelegate: class {
-    func newsFeedViewControllerDidSelectNews(withUrl: String, withNews: ModelForNewsCell)
+    func newsFeedViewControllerDidSelectArticle(withUrl: String, withArticle: ModelForNewsCell)
     func newsFeedViewControllerDidSelectFavorites()
 }
 
@@ -74,8 +74,8 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let url = newsViewModel.modelsForNewsCell[indexPath.row].url
-        let news = newsViewModel.modelsForNewsCell[indexPath.row]
-        delegate?.newsFeedViewControllerDidSelectNews(withUrl: url, withNews: news)
+        let article = newsViewModel.modelsForNewsCell[indexPath.row]
+        delegate?.newsFeedViewControllerDidSelectArticle(withUrl: url, withArticle: article)
     }
     
 }
@@ -96,7 +96,6 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
 extension NewsFeedViewController {
     
     @objc func toFavoriteListClicked() {
-        print("click favorite list")
         delegate?.newsFeedViewControllerDidSelectFavorites()
     }
     

@@ -12,14 +12,15 @@ class FavoritesViewModel {
     let googleNewsAPI: GoogleNewsAPI
     let newsSaver =  NewsSaver()
 
-    var model : Article
-    var models = [Article]()
+//    var model : Article
+    var models : [Article]
     
     
     init(googleNewsAPI: GoogleNewsAPI) {
         self.googleNewsAPI = googleNewsAPI
-        self.model =  newsSaver.readArticle()!
-        models.append(model)
+       // self.model =  newsSaver.readArticle()!
+        self.models = newsSaver.readArticle()!
+      
     }
     
    

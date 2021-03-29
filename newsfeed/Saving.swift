@@ -16,7 +16,7 @@ class NewsSaver: FileManagerWritingAndReadingArticle {
         return documentDirectory
     }
     
-    func saveArticle(_ article: Article) {
+    func saveArticle(_ article: [Article]) {
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(article)
@@ -30,13 +30,13 @@ class NewsSaver: FileManagerWritingAndReadingArticle {
         }
     }
     
-    func readArticle() -> Article? {
+    func readArticle() -> [Article]? {
         let decoder = JSONDecoder()
         do {
             let url = documentDirectory().appendingPathComponent(favoriteArticle)
              let data = try Data(contentsOf: url)
-            let article = try decoder.decode(Article.self, from: data)
-            print(article.author)
+            let article = try decoder.decode([Article].self, from: data)
+            print(article.count)
             return article
             
         } catch {

@@ -33,8 +33,8 @@ class NewsFeedViewControllerCoordinator: Coordinator, NewsFeedViewControllerDele
         self.newsFeedViewController = newsFeedViewController
     }
     
-    func newsFeedViewControllerDidSelectNews(withUrl: String, withNews: ModelForNewsCell) {
-        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI, newsUrl: withUrl, news: withNews)
+    func newsFeedViewControllerDidSelectArticle(withUrl: String, withArticle: ModelForNewsCell) {
+        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI, article: withArticle)
         detailsViewControllerCoordinator.start()
         self.detailsViewControllerCoordinator = detailsViewControllerCoordinator
     }

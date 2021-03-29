@@ -35,7 +35,6 @@ class DetailsViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         webView.load(detailsViewModel.myRequestForShowingNews())
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(saveArticleClicked))
@@ -43,7 +42,6 @@ class DetailsViewController: UIViewController, WKUIDelegate {
     }
     
     @objc func saveArticleClicked() {
-        
         detailsViewModel.saveArticle()
         
     }

@@ -22,11 +22,8 @@ class NewsSaver: FileManagerWritingAndReadingArticle {
             let data = try encoder.encode(article)
             let url = documentDirectory().appendingPathComponent(favoriteArticle)
             try data.write(to: url)
-            print("write")
-            //print url
-            print(url)
         } catch {
-            print ("SaveArticle error \(error)")
+            print ("NewsSaver -> saveArticle error \(error)")
         }
     }
     
@@ -36,11 +33,10 @@ class NewsSaver: FileManagerWritingAndReadingArticle {
             let url = documentDirectory().appendingPathComponent(favoriteArticle)
              let data = try Data(contentsOf: url)
             let article = try decoder.decode([Article].self, from: data)
-            print(article.count)
             return article
             
         } catch {
-            print(error)
+            print("NewsSaver -> readArticle error \(error)")
             return nil
         }
         

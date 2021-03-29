@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsFeedViewController" customModule="newsfeed" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionViewOfNews" destination="ScY-5B-zgG" id="8TV-sA-uls"/>
+                <outlet property="connectionStatusLabel" destination="VAG-1X-fcc" id="e2s-k0-MsI"/>
+                <outlet property="indicatorrOfDownloading" destination="Kzi-4O-9ln" id="1Or-NX-0No"/>
+                <outlet property="lastUpdateLAbel" destination="n9G-sb-tK1" id="qKV-Nu-fXx"/>
+                <outlet property="networkStatusLabel" destination="3x3-VF-ysf" id="TLV-ak-gIa"/>
+                <outlet property="reconnectButton" destination="OPO-ov-l76" id="6Ul-VD-Ld7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ScY-5B-zgG">
+                    <rect key="frame" x="0.0" y="17" width="375" height="650"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="YoP-XW-gDm">
+                        <size key="itemSize" width="187" height="187"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Kzi-4O-9ln">
+                    <rect key="frame" x="156" y="347" width="37" height="37"/>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Connection in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAG-1X-fcc">
+                    <rect key="frame" x="60" y="201" width="266" height="123"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPO-ov-l76">
+                    <rect key="frame" x="116" y="413" width="142" height="64"/>
+                    <color key="backgroundColor" red="0.32510198728002682" green="0.011864977408436037" blue="0.027014703280939766" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Try again">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="reconnectClicked:" destination="-1" eventType="touchUpInside" id="eeB-Ht-NwO"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3x3-VF-ysf">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="7"/>
+                    <color key="backgroundColor" red="1" green="0.036496170039999998" blue="0.083096087809999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="7" id="TtL-wc-8HX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last update: today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9G-sb-tK1">
+                    <rect key="frame" x="0.0" y="7" width="375" height="11"/>
+                    <color key="backgroundColor" red="0.53563384540000003" green="0.704926846" blue="0.44587777410000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ScY-5B-zgG" firstAttribute="top" secondItem="n9G-sb-tK1" secondAttribute="bottom" constant="-1" id="0IQ-JX-0mP"/>
+                <constraint firstItem="Kzi-4O-9ln" firstAttribute="top" secondItem="VAG-1X-fcc" secondAttribute="bottom" constant="23" id="5Ts-RJ-PPp"/>
+                <constraint firstItem="Kzi-4O-9ln" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="156" id="6qB-fy-AEy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3x3-VF-ysf" secondAttribute="trailing" id="BNX-qC-gGB"/>
+                <constraint firstItem="OPO-ov-l76" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="116" id="CKi-6M-VI2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="n9G-sb-tK1" secondAttribute="trailing" id="EbI-XZ-t3V"/>
+                <constraint firstItem="ScY-5B-zgG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FBn-82-uDi"/>
+                <constraint firstItem="VAG-1X-fcc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="201" id="K8R-zK-2Ck"/>
+                <constraint firstItem="OPO-ov-l76" firstAttribute="top" secondItem="Kzi-4O-9ln" secondAttribute="bottom" constant="29" id="Kyf-wX-ehz"/>
+                <constraint firstItem="ScY-5B-zgG" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="OXC-s7-zvD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="OPO-ov-l76" secondAttribute="trailing" constant="117" id="Pz5-MZ-E2w"/>
+                <constraint firstItem="n9G-sb-tK1" firstAttribute="top" secondItem="3x3-VF-ysf" secondAttribute="bottom" id="Qsn-ex-eDx"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VAG-1X-fcc" secondAttribute="trailing" constant="49" id="ThG-cX-9cO"/>
+                <constraint firstItem="3x3-VF-ysf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bKY-zH-FnO"/>
+                <constraint firstItem="3x3-VF-ysf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bfJ-hy-KJO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Kzi-4O-9ln" secondAttribute="trailing" constant="182" id="dRD-FT-AVz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ScY-5B-zgG" secondAttribute="trailing" id="nAX-Qs-n5U"/>
+                <constraint firstItem="VAG-1X-fcc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="60" id="tl5-DC-4sD"/>
+                <constraint firstItem="n9G-sb-tK1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="usC-dF-dUo"/>
+                <constraint firstItem="ScY-5B-zgG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="17" id="yws-k6-gBE"/>
+            </constraints>
+            <point key="canvasLocation" x="20" y="62.518740629685162"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

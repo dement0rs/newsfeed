@@ -11,12 +11,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
+    private var applicationCoordinator: ApplicationCoordinator?
+        let googleNewsAPI = GoogleNewsAPI(baseUrl: "https://newsapi.org", apiKey: "e56c97e0c2344aa2817396a7f2deb097", version: "v2")
+    
+        
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        if window != nil {
+            let applicationCoordinator = ApplicationCoordinator(window: window!, googleNewsAPI: googleNewsAPI)
+            self.applicationCoordinator = applicationCoordinator
+            applicationCoordinator.start()
+        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

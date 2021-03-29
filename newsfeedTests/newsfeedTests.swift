@@ -10,24 +10,20 @@ import XCTest
 
 class newsfeedTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testCreateURLWithRightParameters() throws {
+        let everything = GoogleNewsEverythingRequest(topic: "COVID-19", dateFrom: "2021-02-07", dateTo: "2021-02-07", sortCriteria: .popularity)
+       let urlCreator = URLCreator(baseUrl: "https://newsapi.org", apiKey: "e56c97e0c2344aa2817396a7f2deb097", version: "/v2/")
+        
+        let result = urlCreator.createURL(endpoint: Endpoints.everything, queryItems: everything)
+        let comparedResult = URL(string: "https://newsapi.org/v2/everything?q=COVID-19&from=2021-02-07&to=2021-02-07&sortBy=popularity&apiKey=e56c97e0c2344aa2817396a7f2deb097")
+        XCTAssertEqual(result, comparedResult
+                       , "cannot create right URL, mistake in creating")
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testCreateQueryItemsForEverythingRequest() throws {
+        
     }
 
 }

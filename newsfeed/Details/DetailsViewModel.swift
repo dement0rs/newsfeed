@@ -10,8 +10,9 @@
 import Foundation
 
 protocol FileManagerWritingAndReadingArticle {
-   func writeArticle(article: String)
-    func readArticle()
+    func readArticle() -> Article?
+    func saveArticle(_ article: Article)
+
    
 }
 
@@ -20,13 +21,14 @@ class DetailsViewModel {
     
     var newsUrl: String
     var news: ModelForNewsCell
-    
+    var article: Article
     let newsSaver =  NewsSaver()
     
     init(googleNewsAPI: GoogleNewsAPI, newsUrl: String, news: ModelForNewsCell) {
         self.googleNewsAPI = googleNewsAPI
         self.newsUrl = news.url
         self.news = news
+        self.article = news.article
         print(newsUrl)
         print(news.autor)
     }
@@ -39,8 +41,7 @@ class DetailsViewModel {
     }
     
     func saveNews() {
-        newsSaver.testEncodeAndSave(news: news)
-      //newsSaver.testSave(news: news)
+        newsSaver.saveArticle(article)
         
     }
     

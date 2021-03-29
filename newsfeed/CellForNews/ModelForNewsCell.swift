@@ -9,6 +9,7 @@ import Foundation
 
 class ModelForNewsCell: Codable {
 
+    let article: Article
     let url: String
     let autor: String
     let title: String
@@ -20,6 +21,7 @@ class ModelForNewsCell: Codable {
     var stringDateForShowingTimeAgo = String()
     
     init(article: Article) {
+        self.article = article
         self.url = article.url
         self.autor = article.author ?? "Some autor"
         self.title = article.title

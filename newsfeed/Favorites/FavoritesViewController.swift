@@ -28,6 +28,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
 
         print("favorites")
         
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -44,6 +45,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.fill(news: cellViewModel.title)
         return cell
     }
+    
     
 
 }

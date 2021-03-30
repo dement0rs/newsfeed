@@ -10,21 +10,19 @@ import UIKit
 class DetailsViewControllerCoordinator: Coordinator {
     
     private let presenter: UINavigationController
-    private let googleNewsAPI: GoogleNewsAPI
     private var detailsViewController: DetailsViewController?
-    private var article: ModelForNewsCell
+    private var article: Article
     
     
-    init(presenter: UINavigationController, googleNewsAPI: GoogleNewsAPI, article: ModelForNewsCell) {
+    init(presenter: UINavigationController, article: Article) {
         self.presenter = presenter
-        self.googleNewsAPI = googleNewsAPI
         self.article = article
     }
     
     
     
     func start() {
-        let viewModel = DetailsViewModel(googleNewsAPI: googleNewsAPI, article: article)
+        let viewModel = DetailsViewModel(article: article)
         let detailsViewController = DetailsViewController(viewModel: viewModel)
         presenter.pushViewController(detailsViewController, animated: true)
         self.detailsViewController = detailsViewController

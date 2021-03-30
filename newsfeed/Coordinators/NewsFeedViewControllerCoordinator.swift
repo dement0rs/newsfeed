@@ -33,14 +33,14 @@ class NewsFeedViewControllerCoordinator: Coordinator, NewsFeedViewControllerDele
         self.newsFeedViewController = newsFeedViewController
     }
     
-    func newsFeedViewControllerDidSelectArticle(withUrl: String, withArticle: ModelForNewsCell) {
-        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI, article: withArticle)
+    func newsFeedViewControllerDidSelectArticle(withUrl: String, withArticle: Article) {
+        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, article: withArticle)
         detailsViewControllerCoordinator.start()
         self.detailsViewControllerCoordinator = detailsViewControllerCoordinator
     }
     
     func newsFeedViewControllerDidSelectFavorites() {
-        let favoritesViewControllerCoordinator = FavoritesViewControllerCoordinator(presenter: presenter, googleNewsAPI: googleNewsAPI)
+        let favoritesViewControllerCoordinator = FavoritesViewControllerCoordinator(presenter: presenter)
         favoritesViewControllerCoordinator.start()
         self.favoritesViewControllerCoordinator = favoritesViewControllerCoordinator
     }

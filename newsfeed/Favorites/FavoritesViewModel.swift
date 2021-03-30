@@ -9,19 +9,13 @@ import Foundation
 
 class FavoritesViewModel {
     
-    let googleNewsAPI: GoogleNewsAPI
-    let newsSaver =  NewsSaver()
-
-    var models = [Article]()
+    let articlesGateway =  ArticlesGateway()
+    var articles = [Article]()
     
     
-    init(googleNewsAPI: GoogleNewsAPI) {
-        self.googleNewsAPI = googleNewsAPI
-        if let array = newsSaver.readArticle() {
-            self.models = array
+    init() {
+        if let articles = articlesGateway.readArticles() {
+            self.articles = articles
         }
-      
     }
-    
-   
 }

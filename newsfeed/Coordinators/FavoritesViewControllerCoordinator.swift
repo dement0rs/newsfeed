@@ -10,18 +10,16 @@ import UIKit
 class FavoritesViewControllerCoordinator: Coordinator {
     
     private let presenter: UINavigationController
-    private let googleNewsAPI: GoogleNewsAPI
     private var favoritesViewController: FavoritesViewController?
     
-    init(presenter: UINavigationController, googleNewsAPI: GoogleNewsAPI ) {
+    init(presenter: UINavigationController) {
         self.presenter = presenter
-        self.googleNewsAPI = googleNewsAPI
     }
     
     
     
     func start() {
-        let viewModel = FavoritesViewModel(googleNewsAPI: googleNewsAPI)
+        let viewModel = FavoritesViewModel()
         let favoritesViewController = FavoritesViewController(viewModel: viewModel)
         presenter.pushViewController(favoritesViewController, animated: true)
         self.favoritesViewController = favoritesViewController

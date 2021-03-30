@@ -37,13 +37,14 @@ class DetailsViewController: UIViewController, WKUIDelegate {
         
         webView.load(detailsViewModel.myRequestForShowingNews())
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(saveArticleClicked))
-        navigationItem.rightBarButtonItem?.tintColor = .availableColor
+        let buttonAddToFavorites = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(saveArticleClicked))
+        buttonAddToFavorites.tintColor = .availableColor
+        navigationItem.rightBarButtonItem = buttonAddToFavorites
+        
     }
     
     @objc func saveArticleClicked() {
         detailsViewModel.saveArticle()
-        
     }
     
     

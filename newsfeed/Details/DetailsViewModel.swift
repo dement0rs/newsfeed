@@ -10,21 +10,20 @@
 import Foundation
 
 protocol FileManagerWritingAndReadingArticle {
-    func readArticle() -> [Article]?
-    func saveArticle(_ article: [Article])
+    func readArticles() -> [Article]?
+    func getArticles(_ articles: [Article])
     
     
 }
 
 class DetailsViewModel {
     
-    let googleNewsAPI: GoogleNewsAPI
-    let newsSaver =  NewsSaver()
-    var article: ModelForNewsCell
-    var favoriteArticle = [Article]()
     
-    init(googleNewsAPI: GoogleNewsAPI, article: ModelForNewsCell) {
-        self.googleNewsAPI = googleNewsAPI
+    let articlesGateway =  ArticlesGateway()
+    var article: Article
+    var favoriteArticles = [Article]()
+    
+    init(article: Article) {
         self.article = article
     }
     
@@ -35,14 +34,17 @@ class DetailsViewModel {
     }
     
     func saveArticle() {
-        guard let savedArticleList = newsSaver.readArticle() else {
+        guard let savedArticleList = articlesGateway.readArticles() else {
+            addArticleToList()
             return
         }
-        favoriteArticle = savedArticleList
-        favoriteArticle.append(article.article)
-        newsSaver.saveArticle(favoriteArticle)
+        favoriteArticles = savedArticleList
+        addArticleToList()
+    }
+    
+    
+    private func addArticleToList(){
+        favoriteArticles.append(article)
+        articlesGateway.getArticles(favoriteArticles)
     }
 }
-
-
-

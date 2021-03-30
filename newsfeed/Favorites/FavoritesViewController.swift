@@ -8,7 +8,7 @@
 import UIKit
 
 class FavoritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-  
+    
     
     @IBOutlet weak var tableView: UITableView!
     let favoritesViewModel: FavoritesViewModel
@@ -22,7 +22,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()        
         
@@ -33,16 +33,16 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.register(nib, forCellReuseIdentifier: FavoritesTableViewCell.reuseIdentifier)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritesViewModel.models.count
+        return favoritesViewModel.articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoritesTableViewCell.reuseIdentifier, for: indexPath) as! FavoritesTableViewCell
-        let cellViewModel = favoritesViewModel.models[indexPath.row]
+        let cellViewModel = favoritesViewModel.articles[indexPath.row]
         cell.fill(news: cellViewModel.title)
         return cell
     }
     
     
-
+    
 }

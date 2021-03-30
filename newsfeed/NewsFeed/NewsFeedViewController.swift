@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NewsFeedViewControllerDelegate: class {
-    func newsFeedViewControllerDidSelectArticle(withUrl: String, withArticle: ModelForNewsCell)
+    func newsFeedViewControllerDidSelectArticle(withUrl: String, withArticle: Article)
     func newsFeedViewControllerDidSelectFavorites()
 }
 
@@ -74,7 +74,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let url = newsViewModel.modelsForNewsCell[indexPath.row].url
-        let article = newsViewModel.modelsForNewsCell[indexPath.row]
+        let article = newsViewModel.modelsForNewsCell[indexPath.row].article
         delegate?.newsFeedViewControllerDidSelectArticle(withUrl: url, withArticle: article)
     }
     

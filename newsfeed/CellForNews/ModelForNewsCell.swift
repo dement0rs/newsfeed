@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ModelForNewsCell: Codable {
-
+class ModelForNewsCell {
+    
     let article: Article
     let url: String
     let autor: String
@@ -36,16 +36,17 @@ class ModelForNewsCell: Codable {
     }
     
     func createDataForImage(stringForImage: String) {
-        guard let url = URL(string: stringForImage) else { return }
-        
+        guard let url = URL(string: stringForImage) else {
+            return
+        }
         do {
             let data = try Data(contentsOf: url)
             dataForImage = data
         } catch {
             print("ModelForNewsCell -> createDataForImage -> can`t get data from url:  \(error.localizedDescription)")
         }
-        
     }
+    
     func convertDateStringToDate(inputDate: String ) -> Date {
         let isoDate = inputDate
         let dateFormatter = DateFormatter()
@@ -53,7 +54,6 @@ class ModelForNewsCell: Codable {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         guard let outputDate = dateFormatter.date(from:isoDate) else {
             return Date()
-            
         }
         return outputDate
     }

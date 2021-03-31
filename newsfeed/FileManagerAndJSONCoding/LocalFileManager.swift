@@ -9,6 +9,8 @@ import Foundation
 
 class LocalFileManager {
     
+    
+    
     let favoriteArticle = "favoriteArticles.txt"
     
     private func documentDirectory() -> URL {
@@ -29,13 +31,14 @@ class LocalFileManager {
     func readData() -> Data? {
         let url = documentDirectory().appendingPathComponent(favoriteArticle)
         print("pass")
+        print(url.path)
         do {
             let data = try Data(contentsOf: url)
             return data
             
         } catch {
-            print("LocalFileManager -> readData: error \(error)")
-            return Data()
+            print(error)
+            return nil
         }
     }
 }

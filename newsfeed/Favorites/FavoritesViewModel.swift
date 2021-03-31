@@ -16,6 +16,8 @@ class FavoritesViewModel {
     init() {
         if let articles = articlesGateway.readArticles() {
             self.articles = articles
+        } else {
+            self.articles = []
         }
     }
 }

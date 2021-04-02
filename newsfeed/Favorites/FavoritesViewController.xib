@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavoritesViewController" customModule="newsfeed" customModuleProvider="target">
             <connections>
+                <outlet property="messageLabel" destination="84G-ef-xKR" id="fQK-32-EX0"/>
                 <outlet property="tableView" destination="SBR-zI-u6B" id="kxo-LX-veT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,13 +25,23 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84G-ef-xKR">
+                    <rect key="frame" x="57" y="229" width="260" height="208"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="84G-ef-xKR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="57" id="6p7-8a-PXv"/>
+                <constraint firstItem="84G-ef-xKR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="229" id="9sO-K4-2wl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="84G-ef-xKR" secondAttribute="bottom" constant="230" id="BOD-Jr-Fdb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SBR-zI-u6B" secondAttribute="trailing" id="dfs-N2-lSj"/>
                 <constraint firstItem="SBR-zI-u6B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oUV-en-nlT"/>
                 <constraint firstItem="SBR-zI-u6B" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="q8U-g7-hWy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="84G-ef-xKR" secondAttribute="trailing" constant="58" id="vq7-ZA-NvM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SBR-zI-u6B" secondAttribute="bottom" id="wqx-MU-VAb"/>
             </constraints>
             <point key="canvasLocation" x="20" y="79.610194902548727"/>

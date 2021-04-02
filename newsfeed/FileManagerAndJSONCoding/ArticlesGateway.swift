@@ -11,7 +11,7 @@ class ArticlesGateway: FileManagerWritingAndReadingArticle {
     
     private let localFileManager = LocalFileManager()
     
-    func getArticles(_ article: [Article]) {
+    func writeArticles(_ article: [Article]) {
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(article)

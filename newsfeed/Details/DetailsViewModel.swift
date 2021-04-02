@@ -11,20 +11,26 @@ import Foundation
 
 protocol FileManagerWritingAndReadingArticle {
     func readArticles() -> [Article]?
-    func getArticles(_ articles: [Article])
-    
-    
+    func writeArticles(_ articles: [Article])
+}
+
+protocol DetailsViewModelDelegate: class {
+    func favoriteListHasAlreadyHadThisArticle()
 }
 
 class DetailsViewModel {
     
-    
-    let articlesGateway =  ArticlesGateway()
-    var article: Article
-    var favoriteArticles = [Article]()
+    private let articlesGateway =  ArticlesGateway()
+    private var article: Article
+    private var favoriteArticles = [Article]()
+    weak var delegate: DetailsViewModelDelegate?
+    var articleTitle : String
+    let messageHaveAlreadyHadArticle = "You have already had this article in favorite list!"
+    let messageOkCool = "OK, cool!"
     
     init(article: Article) {
         self.article = article
+        self.articleTitle = article.title
     }
     
     func myRequestForShowingNews() -> URLRequest {
@@ -35,16 +41,20 @@ class DetailsViewModel {
     
     func saveArticle() {
         guard let savedArticleList = articlesGateway.readArticles() else {
-            addArticleToList()
+           addArticleToList()
             return
         }
         favoriteArticles = savedArticleList
-        addArticleToList()
+        if favoriteArticles.contains(article) {
+            print("have already had")
+            delegate?.favoriteListHasAlreadyHadThisArticle()
+        } else {
+            addArticleToList()
+        }
     }
     
-    
-    private func addArticleToList(){
+    private func addArticleToList() {
         favoriteArticles.append(article)
-        articlesGateway.getArticles(favoriteArticles)
+        articlesGateway.writeArticles(favoriteArticles)
     }
 }

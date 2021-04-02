@@ -11,7 +11,7 @@ class LocalFileManager {
     
     
     
-    let favoriteArticle = "favoriteArticles.txt"
+    let favoriteArticle = "favoriteArticles.json"
     
     private func documentDirectory() -> URL {
         let documentDirectory =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]

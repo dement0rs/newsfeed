@@ -7,10 +7,12 @@
 
 import UIKit
 
-class FavoritesViewControllerCoordinator: Coordinator {
+class FavoritesViewControllerCoordinator: Coordinator, FavoritesViewControllerDelegate {
+    
     
     private let presenter: UINavigationController
     private var favoritesViewController: FavoritesViewController?
+    private var detailsViewControllerCoordinator: DetailsViewControllerCoordinator?
     
     init(presenter: UINavigationController) {
         self.presenter = presenter
@@ -21,8 +23,15 @@ class FavoritesViewControllerCoordinator: Coordinator {
     func start() {
         let viewModel = FavoritesViewModel()
         let favoritesViewController = FavoritesViewController(viewModel: viewModel)
+        favoritesViewController.delegate = self
         presenter.pushViewController(favoritesViewController, animated: true)
         self.favoritesViewController = favoritesViewController
+    }
+    
+    func favoritesViewControllerDidSelectArticle(_ article: Article) {
+        let detailsViewControllerCoordinator  = DetailsViewControllerCoordinator(presenter: presenter, article: article)
+        detailsViewControllerCoordinator.start()
+        self.detailsViewControllerCoordinator = detailsViewControllerCoordinator
     }
     
     

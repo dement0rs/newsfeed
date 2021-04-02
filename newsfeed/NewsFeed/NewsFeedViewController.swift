@@ -47,8 +47,7 @@ class NewsFeedViewController: UIViewController, UICollectionViewDelegate, UIColl
         stateChanged(state: newsViewModel.dataState)
         self.newsViewModel.showNewsByEverythingRequest()
        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(toFavoriteListClicked))
-        navigationItem.rightBarButtonItem?.tintColor = .availableColor
+        createToFavoriteArticleListButton()
     }
     
     @IBAction func reconnectClicked(_ sender: UIButton) {
@@ -95,6 +94,14 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
 
 extension NewsFeedViewController {
     
+    func createToFavoriteArticleListButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(toFavoriteListClicked))
+        navigationItem.rightBarButtonItem?.tintColor = .availableColor
+    }
+    
     @objc func toFavoriteListClicked() {
         delegate?.newsFeedViewControllerDidSelectFavorites()
     }
@@ -135,7 +142,6 @@ extension NewsFeedViewController {
             view.backgroundColor = .loadingColor
             
         case .available:
-            
             indicatorrOfDownloading.isHidden = true
             indicatorrOfDownloading.stopAnimating()
             connectionStatusLabel.isHidden = true
